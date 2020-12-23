@@ -19,5 +19,6 @@ public class Login {
         //Get the Stage from Event Called
         Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
         stageTheEventBelongsTo.setScene(new Scene(root));
+        stageTheEventBelongsTo.setTitle("Register");
     }
 }
