@@ -27,3 +27,7 @@ hs_err_pid*
 .classpath
 .project
 /bin/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+Car-Sales.iml
