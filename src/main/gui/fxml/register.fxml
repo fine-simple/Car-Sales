@@ -26,7 +26,7 @@
             <Insets left="80.0" right="80.0" />
          </VBox.margin></TextField>
       <TextField fx:id="email" maxHeight="30.0" maxWidth="350.0" minHeight="30.0" minWidth="350.0" prefHeight="30.0" prefWidth="350.0" promptText="Email" />
-      <PasswordField maxHeight="30.0" maxWidth="350.0" minHeight="30.0" minWidth="350.0" prefHeight="30.0" prefWidth="350.0" promptText="Password" />
+      <PasswordField fx:id="password" maxHeight="30.0" maxWidth="350.0" minHeight="30.0" minWidth="350.0" prefHeight="30.0" prefWidth="350.0" promptText="Password" />
       <Button maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#register" prefHeight="30.0" prefWidth="150.0" text="Register" />
       <HBox alignment="CENTER">
          <children>

@@ -1,34 +1,27 @@
 package main.java.controller;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.java.component.Client;
-import main.java.component.User;
 
-public class Register implements Initializable {
-
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-
-
-    }
+public class Register {
 
     @FXML
-    private TextField fullName, password, email;
+    private TextField fullName, email;
+    @FXML
+    private PasswordField password;
 
     @FXML
     private void goToLogin(ActionEvent e) throws IOException {
@@ -89,7 +82,7 @@ public class Register implements Initializable {
         else {
             //Add to users database
             Client client[] = new Client[1000];
-            client[Client.clientsNumber]=new Client(fullName.getText(), email.getText(), password.getText());
+            client[Client.clientsNumber] = new Client(fullName.getText(), email.getText(), password.getText());
             System.out.println(client[Client.clientsNumber].getFullName());
             //Notify to added user
             Alert alert = new Alert(AlertType.INFORMATION, "User Added Successfully", ButtonType.OK);
