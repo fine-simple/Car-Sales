@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.java.component.Vehicle;
 
 public class Main extends Application {
 	public static void main(String[] args) {
@@ -14,8 +13,6 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// Array of Vehicles
-		Vehicle[] vehicles = new Vehicle[1000];
 
 		// Start Login Page
 		Parent root = FXMLLoader.load(getClass().getResource("../gui/fxml/login.fxml"));
