@@ -20,15 +20,15 @@ import main.java.component.Client;
 import main.java.component.User;
 
 public class Register implements Initializable {
-    
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        
-    
+
+
     }
 
     @FXML
-    public static TextField fullName, password, email;
+    private TextField fullName, password, email;
 
     @FXML
     private void goToLogin(ActionEvent e) throws IOException {
@@ -52,7 +52,7 @@ public class Register implements Initializable {
 
     private boolean validateEmail() {
         String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-        
+
         if(email.getText().matches(regex))
             return true;
         else
@@ -68,9 +68,9 @@ public class Register implements Initializable {
 
     @FXML
     private void register(ActionEvent e) throws IOException {
-        
+
         Alert error = new Alert(AlertType.ERROR, "", ButtonType.CANCEL);
-        
+
         if(!validateName()) {
             error.setHeaderText("Full Name Error");
             error.setContentText("Please Make Sure you enter each word capitalized with maximum 3 words");
@@ -88,9 +88,9 @@ public class Register implements Initializable {
         }
         else {
             //Add to users database
-            Client user = new Client(fullName.getText(), email.getText(), password.getText());
-
-            System.out.println(user.getFullName());
+            Client client[] = new Client[1000];
+            client[Client.clientsNumber]=new Client(fullName.getText(), email.getText(), password.getText());
+            System.out.println(client[Client.clientsNumber].getFullName());
             //Notify to added user
             Alert alert = new Alert(AlertType.INFORMATION, "User Added Successfully", ButtonType.OK);
             alert.show();
