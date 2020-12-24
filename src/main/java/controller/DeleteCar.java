@@ -13,10 +13,15 @@ import javafx.stage.Stage;
 public class DeleteCar {
     @FXML
     public static void loadScene(ActionEvent e) throws IOException{
-        Parent root = FXMLLoader.load(Search.class.getResource("../../gui/fxml/delete_car.fxml"));
+        Parent root = FXMLLoader.load(SearchCar.class.getResource("../../gui/fxml/delete_car.fxml"));
 
         // Get the Stage from Event Called
         Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
         stageTheEventBelongsTo.setScene(new Scene(root));
-    }   
+    }
+
+    @FXML
+    private void goBack(ActionEvent e) throws IOException {
+        Admin.loadScene(e);
+    }
 }

@@ -23,7 +23,7 @@ public class Admin {
 
     @FXML
     private void goToSearch(ActionEvent e) throws IOException {
-        Search.loadScene(e);
+        SearchCar.loadScene(e);
     }
 
     @FXML
