@@ -24,13 +24,17 @@ public class Register {
     private PasswordField password;
 
     @FXML
-    private void goToLogin(ActionEvent e) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../../gui/fxml/login.fxml"));
+    public static void loadScene(ActionEvent e) throws IOException {
+        Parent root = FXMLLoader.load(Register.class.getResource("../../gui/fxml/register.fxml"));
 
         // Get the Stage from Event Called
         Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
         stageTheEventBelongsTo.setScene(new Scene(root));
-        stageTheEventBelongsTo.setTitle("Login");
+    }
+
+    @FXML
+    private void goToLogin(ActionEvent e) throws IOException {
+        Login.loadScene(e);
     }
 
     private boolean validateName() {
@@ -81,13 +85,14 @@ public class Register {
         }
         else {
             //Add to users database
-            Client client[] = new Client[1000];
-            client[Client.clientsNumber] = new Client(fullName.getText(), email.getText(), password.getText());
-            System.out.println(client[Client.clientsNumber].getFullName());
+            Client.array.add(new Client(fullName.getText(), email.getText(), password.getText()));
+            
             //Notify to added user
             Alert alert = new Alert(AlertType.INFORMATION, "User Added Successfully", ButtonType.OK);
             alert.show();
+
+            //Go Marketplace
+            Marketplace.loadScene(e);
         }
     }
-
 }
