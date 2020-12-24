@@ -26,8 +26,8 @@ hs_err_pid*
 .vscode/
 .classpath
 .project
-/bin/
-.idea/misc.xml
-.idea/modules.xml
-.idea/vcs.xml
+
+#Ahmed Hassan
+.idea/*
 Car-Sales.iml
+/bin/
