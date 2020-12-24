@@ -4,8 +4,7 @@ public class Car {
 	private String name, model, color;
 	private int date, price;
 
-	public Car(String name, String model, String color, int date, int price) {
-		super();
+	public Car(String name, String model, int date, int price, String color) {
 		this.name = name;
 		this.model = model;
 		this.color = color;
@@ -13,4 +12,7 @@ public class Car {
 		this.price = price;
 	}
 
+	public Car(String name, String model, int date, int price) {
+		this(name, model, date, price, "Not Defined");
+	}
 }
