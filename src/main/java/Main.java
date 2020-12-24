@@ -30,8 +30,8 @@ public class Main extends Application {
 		// Stage Settings
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Login");
-		primaryStage.getIcons().add(new Image(
-				"https://raw.githubusercontent.com/v01dc0d3/Car-Sales/main/src/main/gui/assets/logo_dark2.png"));
+		primaryStage.getIcons().add(
+				new Image("https://raw.githubusercontent.com/v01dc0d3/Car-Sales/main/src/main/gui/assets/icon.png"));
 
 		// Display window
 		primaryStage.setScene(scene);
