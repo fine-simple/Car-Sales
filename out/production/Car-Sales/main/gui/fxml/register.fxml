@@ -20,16 +20,16 @@
             <Insets bottom="20.0" top="15.0" />
          </VBox.margin>
       </ImageView>
-      <TextField maxHeight="30.0" maxWidth="350.0" minHeight="30.0" minWidth="350.0" prefHeight="30.0" prefWidth="350.0" promptText="Full Name">
+      <TextField fx:id="fullName" maxHeight="30.0" maxWidth="350.0" minHeight="30.0" minWidth="350.0" prefHeight="30.0" prefWidth="350.0" promptText="Full Name">
          <VBox.margin>
             <Insets left="80.0" right="80.0" />
          </VBox.margin></TextField>
-      <TextField maxHeight="30.0" maxWidth="350.0" minHeight="30.0" minWidth="350.0" prefHeight="30.0" prefWidth="350.0" promptText="Email" />
-      <TextField accessibleRole="PASSWORD_FIELD" maxHeight="30.0" maxWidth="350.0" minHeight="30.0" minWidth="350.0" prefHeight="30.0" prefWidth="350.0" promptText="Password">
+      <TextField fx:id="email" maxHeight="30.0" maxWidth="350.0" minHeight="30.0" minWidth="350.0" prefHeight="30.0" prefWidth="350.0" promptText="Email" />
+      <TextField fx:id="password" accessibleRole="PASSWORD_FIELD" maxHeight="30.0" maxWidth="350.0" minHeight="30.0" minWidth="350.0" prefHeight="30.0" prefWidth="350.0" promptText="Password">
          <VBox.margin>
             <Insets left="80.0" right="80.0" />
          </VBox.margin></TextField>
-      <Button maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Register" />
+      <Button maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#register" prefHeight="30.0" prefWidth="150.0" text="Register" />
       <HBox alignment="CENTER">
          <children>
             <Label text="Already have an account? " />
