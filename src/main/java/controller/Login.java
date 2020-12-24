@@ -21,4 +21,9 @@ public class Login {
         stageTheEventBelongsTo.setScene(new Scene(root));
         stageTheEventBelongsTo.setTitle("Register");
     }
+
+    @FXML
+    private void login() {
+        
+    }
 }

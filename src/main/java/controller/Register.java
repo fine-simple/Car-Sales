@@ -58,7 +58,7 @@ public class Register implements Initializable {
     }
 
     private boolean validatePassword() {
-        if(password.getText().length() > 6)
+        if(password.getText().length() >= 6)
             return true;
         else
             return false;
@@ -66,17 +66,29 @@ public class Register implements Initializable {
 
     @FXML
     private void register() {
-        if(validateName() && validateEmail() && validatePassword()) {
-            //Add to users database
-
-
-            //Added notification
-            Alert alert = new Alert(AlertType.INFORMATION, "User Added Successfully", ButtonType.OK);
-            alert.show();
+        
+        Alert error = new Alert(AlertType.ERROR, "", ButtonType.CANCEL);
+        
+        if(!validateName()) {
+            error.setHeaderText("Full Name Error");
+            error.setContentText("Please Make Sure you enter each word capitalized with maximum 3 words");
+            error.show();
+        }
+        else if(!validateEmail()) {
+            error.setHeaderText("Email Error");
+            error.setContentText("Please Make Sure you enter valid email format");
+            error.show();
+        }
+        else if(!validatePassword()) {
+            error.setHeaderText("Password Error");
+            error.setContentText("Please Make Sure you enter at least 6 characters in password");
+            error.show();
         }
         else {
-            //Display Error
-            Alert alert = new Alert(AlertType.ERROR, "Please Validate your information", ButtonType.CANCEL);
+            //Add to users database
+            
+            //Notify to added user
+            Alert alert = new Alert(AlertType.INFORMATION, "User Added Successfully", ButtonType.OK);
             alert.show();
         }
     }
