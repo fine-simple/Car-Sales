@@ -1,8 +1,11 @@
 package main.java.component;
 
+import java.util.ArrayList;
+
 public class Car {
 	private String name, model, color;
 	private int date, price;
+	public static ArrayList<Car> cars;
 
 	public Car(String name, String model, int date, int price, String color) {
 		this.name = name;
@@ -10,6 +13,7 @@ public class Car {
 		this.color = color;
 		this.date = date;
 		this.price = price;
+
 	}
 
 	public Car(String name, String model, int date, int price) {
@@ -54,6 +58,14 @@ public class Car {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
