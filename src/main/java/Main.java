@@ -11,8 +11,12 @@ public class Main extends Application {
         launch(args);
     }
 
+
     @Override
-    public void start(Stage primaryStage) throws Exception {        
+    public void start(Stage primaryStage) throws Exception {
+        //Array of Vehicles
+        Vehicle []vehicles = new Vehicle[1000];
+
         //Start Login Page
         Parent root = FXMLLoader.load(getClass().getResource("../gui/fxml/login.fxml"));
         Scene scene = new Scene(root);
