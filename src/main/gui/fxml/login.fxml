@@ -28,7 +28,7 @@
          <VBox.margin>
             <Insets left="80.0" right="80.0" />
          </VBox.margin></TextField>
-      <Button maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Login">
+      <Button maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="150.0" text="Login">
          <VBox.margin>
             <Insets left="150.0" right="150.0" />
          </VBox.margin></Button>
