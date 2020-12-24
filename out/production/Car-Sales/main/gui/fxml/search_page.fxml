@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<HBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.Register">
+<HBox maxHeight="500.0" maxWidth="700.0" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.Register">
    <children>
       <ImageView fitHeight="80.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -22,18 +21,18 @@
             <Insets left="20.0" top="20.0" />
          </HBox.margin>
       </ImageView>
-      <VBox alignment="TOP_CENTER" maxHeight="500.0" maxWidth="700.0" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" spacing="20.0" stylesheets="@../stylesheets/dark-theme.css">
+      <VBox alignment="TOP_CENTER" maxHeight="500.0" maxWidth="700.0" minHeight="500.0" minWidth="588.0" prefHeight="500.0" prefWidth="588.0" spacing="20.0" stylesheets="@../stylesheets/dark-theme.css">
          <children>
-            <HBox>
+            <HBox prefHeight="30.0" prefWidth="647.0">
                <children>
-                  <TextField maxHeight="30.0" maxWidth="520.0" minHeight="30.0" minWidth="500.0" prefHeight="30.0" prefWidth="520.0" promptText="Search here ..." />
+                  <TextField maxHeight="30.0" prefHeight="30.0" prefWidth="397.0" promptText="Search here ..." />
                   <Button maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Search" />
                </children>
             </HBox>
             <HBox alignment="CENTER" />
             <ScrollPane prefHeight="450.0" prefWidth="630.0">
                <content>
-                  <VBox prefHeight="445.0" prefWidth="609.0">
+                  <VBox prefHeight="750.0" prefWidth="496.0">
                      <children>
                         <HBox prefHeight="110.0" prefWidth="610.0">
                            <children>
@@ -42,14 +41,14 @@
                                     <Image url="@../assets/Volvo_XC40_2018.jpg" />
                                  </image>
                               </ImageView>
-                              <VBox prefHeight="151.0" prefWidth="404.0">
+                              <VBox prefHeight="115.0" prefWidth="298.0">
                                  <HBox.margin>
                                     <Insets left="15.0" />
                                  </HBox.margin>
                                  <children>
                                     <Label prefHeight="35.0" prefWidth="330.0" text="Volvo XC40 2018" textFill="WHITE">
                                        <font>
-                                          <Font name="System Bold" size="24.0" />
+                                          <Font name="System Bold" size="22.0" />
                                        </font>
                                     </Label>
                                     <Label prefHeight="18.0" prefWidth="254.0" text="ID: 0001" textFill="WHITE">
@@ -88,7 +87,7 @@
                                  <children>
                                     <Label prefHeight="35.0" prefWidth="330.0" text="Model: Ford Ranger 2019" textFill="WHITE">
                                        <font>
-                                          <Font name="System Bold" size="24.0" />
+                                          <Font name="System Bold" size="22.0" />
                                        </font>
                                     </Label>
                                     <Label prefHeight="18.0" prefWidth="254.0" text="ID: 0002" textFill="WHITE">
@@ -127,7 +126,7 @@
                                  <children>
                                     <Label prefHeight="35.0" prefWidth="330.0" text="Volvo XC40 2018" textFill="WHITE">
                                        <font>
-                                          <Font name="System Bold" size="24.0" />
+                                          <Font name="System Bold" size="22.0" />
                                        </font>
                                     </Label>
                                     <Label prefHeight="18.0" prefWidth="254.0" text="ID: 0001" textFill="WHITE">
