@@ -28,7 +28,7 @@ public class Register implements Initializable {
     }
 
     @FXML
-    private TextField fullName, password, email;
+    public static TextField fullName, password, email;
 
     @FXML
     private void goToLogin(ActionEvent e) throws IOException {
