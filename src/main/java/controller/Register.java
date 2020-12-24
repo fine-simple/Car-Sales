@@ -16,6 +16,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import main.java.component.Client;
+import main.java.component.User;
 
 public class Register implements Initializable {
     
@@ -65,7 +67,7 @@ public class Register implements Initializable {
     }
 
     @FXML
-    private void register() {
+    private void register(ActionEvent e) throws IOException {
         
         Alert error = new Alert(AlertType.ERROR, "", ButtonType.CANCEL);
         
@@ -86,7 +88,9 @@ public class Register implements Initializable {
         }
         else {
             //Add to users database
-            
+            Client user = new Client(fullName.getText(), email.getText(), password.getText());
+
+            System.out.println(user.getFullName());
             //Notify to added user
             Alert alert = new Alert(AlertType.INFORMATION, "User Added Successfully", ButtonType.OK);
             alert.show();
