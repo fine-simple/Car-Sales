@@ -10,14 +10,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class SearchCar {
+public class CarSearch {
     @FXML
     public static void loadScene(ActionEvent e) throws IOException {
-        Parent root = FXMLLoader.load(SearchCar.class.getResource("../../gui/fxml/search_car.fxml"));
+    Parent root =
+    FXMLLoader.load(CarSearch.class.getResource("../../gui/fxml/search_car.fxml"));
 
-        // Get the Stage from Event Called
-        Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        stageTheEventBelongsTo.setScene(new Scene(root));
+    // Get the Stage from Event Called
+    Stage stageTheEventBelongsTo = (Stage) ((Node)
+    e.getSource()).getScene().getWindow();
+    stageTheEventBelongsTo.setScene(new Scene(root));
     }
 
     @FXML

@@ -9,15 +9,15 @@ public class Admin extends User {
 	}
 
 	public void add(Car car) {
-		Car.cars.add(car);
+		Car.array.add(car);
 	}
 
 	public void delete(Car car) {
-		Car.cars.remove(car);
+		Car.array.remove(car);
 	}
 
 	public void edit(int ID, Car car) {
-		Car.cars.set(ID - 1, car);
+		Car.array.set(ID - 1, car);
 
 	}
 }

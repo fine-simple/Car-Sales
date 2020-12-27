@@ -10,10 +10,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class EditCar {
+public class CarEdit {
     @FXML
     public static void loadScene(ActionEvent e) throws IOException{
-        Parent root = FXMLLoader.load(SearchCar.class.getResource("../../gui/fxml/edit_car.fxml"));
+        Parent root = FXMLLoader.load(CarEdit.class.getResource("../../gui/fxml/edit_car.fxml"));
 
         // Get the Stage from Event Called
         Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();

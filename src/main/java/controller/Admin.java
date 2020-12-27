@@ -23,21 +23,21 @@ public class Admin {
 
     @FXML
     private void goToSearch(ActionEvent e) throws IOException {
-        SearchCar.loadScene(e);
+        CarSearch.loadScene(e);
     }
 
     @FXML
     private void goToEdit(ActionEvent e) throws IOException {
-        EditCar.loadScene(e);
+        CarEdit.loadScene(e);
     }
 
     @FXML
     private void goToAdd(ActionEvent e) throws IOException {
-        AddCar.loadScene(e);
+        CarAdd.loadScene(e);
     }
 
     @FXML
     private void goToDelete(ActionEvent e) throws IOException {
-        DeleteCar.loadScene(e);
+        CarDelete.loadScene(e);
     }
 }
