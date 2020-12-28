@@ -13,17 +13,16 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		// Sample Data
 		Client.array.add(new Client("fullName", "email", "password"));
-		Car.array.add(new Car("Tesla", "S23", 32, 32));
+		Car.array.add(new Car("Tesla", "S23", 32, 32, "main/gui/assets/Volvo_XC40_2018.jpg"));
 		Car.array.add(new Car("Hundai", "7mada", 242, 3242342));
 
 		launch(args);
 	}
 
 	@Override
-	
 	public void start(Stage primaryStage) throws Exception {
 		// Start Login Page
-		Parent root = FXMLLoader.load(getClass().getResource("../gui/fxml/login.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("../gui/fxml/marketplace.fxml"));
 		Scene scene = new Scene(root);
 
 		// Stage Settings

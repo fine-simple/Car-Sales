@@ -3,6 +3,7 @@ package main.java.controller;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,33 +11,56 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.java.component.Client;
 
-public class Register {
+public class Register implements Controller {
 
+    private static Register instance = null;
+    private Scene scene = null;
+    
     @FXML
     private TextField fullName, email;
     @FXML
     private PasswordField password;
 
     @FXML
-    public static void loadScene(ActionEvent e) throws IOException {
-        Parent root = FXMLLoader.load(Register.class.getResource("../../gui/fxml/register.fxml"));
+    public void loadScene(Event e) {
+        
+        Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("../../gui/fxml/register.fxml"));
+            scene = new Scene(root);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
 
         // Get the Stage from Event Called
-        Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        stageTheEventBelongsTo.setScene(new Scene(root));
+        stageTheEventBelongsTo.setScene(scene);
+    }
+
+    public static Register getInstance() {
+        if(instance == null)
+            instance = new Register();
+
+        return instance;
     }
 
     @FXML
-    private void goToLogin(ActionEvent e) throws IOException {
-        Login.loadScene(e);
+    private void goToLogin(ActionEvent e) {
+        Login.getInstance().loadScene(e);
     }
 
+    @FXML
+    private void performRegister(KeyEvent e) {
+        if(e.getCode() == KeyCode.ENTER)
+            register((Event)e);
+    }
     private boolean validateName() {
         String regexName = "\\p{Upper}(\\p{Lower}+\\s?)";
         String patternName = "(" + regexName + "){2,3}";
@@ -64,7 +88,7 @@ public class Register {
     }
 
     @FXML
-    private void register(ActionEvent e) throws IOException {
+    private void register(Event e) {
 
         Alert error = new Alert(AlertType.ERROR, "", ButtonType.CANCEL);
 
@@ -92,7 +116,7 @@ public class Register {
             alert.show();
 
             //Go Marketplace
-            Marketplace.loadScene(e);
+            Marketplace.getInstance().loadScene(e);
         }
     }
 }

@@ -5,10 +5,10 @@ public class User {
 	private String email;
 	private String password;
 
-	public User(String FN, String E, String PW) {
-		fullName = FN;
-		email = E;
-		password = PW;
+	public User(String fullName, String email, String password) {
+		this.fullName = fullName;
+		this.email = email;
+		this.password = password;
 	}
 
 	public String getFullName() {
