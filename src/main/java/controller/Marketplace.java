@@ -2,6 +2,7 @@ package main.java.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javafx.event.Event;
@@ -48,21 +49,54 @@ public class Marketplace implements Initializable, Controller {
             list.getChildren().add(car.getContainer());
         });
     }
+
+
     @FXML
     private void search(Event e){
-        Car.array.forEach(car -> {
-            list.getChildren().remove(car.getContainer());
-        });
-        for(int i=0;i<Car.array.size();i++){
-            if(Car.array.get(i).getName().equals(search.getText())) {
-                list.getChildren().add(Car.array.get(i).getContainer());
-
+        if(search.getText().length()==0) {
+            Car.array.forEach(car -> {
+                list.getChildren().remove(car.getContainer());
+            });
+            Car.array.forEach(car -> {
+                list.getChildren().add(car.getContainer());
+            });
+        }
+        else{
+            Car.array.forEach(car -> {
+                list.getChildren().remove(car.getContainer());
+            });
+            for(int i=0;i<Car.array.size();i++) {
+                if (isNumeric(search.getText())){
+                    if(search.getText().length()>4){
+                        if(Integer.parseInt(search.getText()) == Car.array.get(i).getPrice()){
+                            list.getChildren().add(Car.array.get(i).getContainer());
+                        }
+                    }
+                    else{
+                        if(Integer.parseInt(search.getText()) == Car.array.get(i).getDate()){
+                            list.getChildren().add(Car.array.get(i).getContainer());
+                        }
+                    }
+                }
+                else if (Car.array.get(i).getName().toLowerCase().contains(search.getText().toLowerCase()) ) {
+                    list.getChildren().add(Car.array.get(i).getContainer());
+                }
             }
+
         }
     }
     public static Marketplace getInstance() {
         if(instance == null)
             instance = new Marketplace();
         return instance;
+    }
+    private static boolean isNumeric(String str){
+        try{
+            Double.parseDouble(str);
+            return true;
+        }
+        catch(NumberFormatException e){
+            return false;
+        }
     }
 }
