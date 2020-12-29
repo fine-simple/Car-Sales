@@ -29,7 +29,7 @@ public abstract class CarCard {
     
     private boolean selected = false;
 
-    public CarCard(String name,String model, float price, String color , int id, String imagePath) {
+    public CarCard(String name,String model, int price, String color , int id, String imagePath) {
         //set left margin to 15 for each element
 		detailsBox.setPrefSize(260, 100);
 		
@@ -39,7 +39,7 @@ public abstract class CarCard {
 		details.setText("ID : " + id);
 		details.setText(details.getText() + '\n' + "Model : " + model);
 		details.setText(details.getText() + '\n' + "Color : " + color);
-		details.setText(details.getText() + '\n' + "Price : " + price + " EGP");
+		details.setText(details.getText() + '\n' + "Price : " + String.format("%,d", price) + " EGP");
 		
         //Car Picture
         this.pic.setImage(new Image(imagePath, 150, 100 ,false, false));
@@ -85,4 +85,13 @@ public abstract class CarCard {
         return selected;
     }
 
+    public void remove() {
+        VBox parent = (VBox) container.getParent();
+		parent.getChildren().remove(container);
+    }
+
+	public HBox getContainer() {
+		return container;
+    }
+    
 }

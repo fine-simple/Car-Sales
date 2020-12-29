@@ -2,11 +2,9 @@ package main.java.component;
 
 import java.util.ArrayList;
 
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import main.gui.java.CarCard;
 
-public class Car extends CarCard{
+public class Car extends CarCard {
 	
 	private int date, price;
 	private String model, color;
@@ -50,19 +48,28 @@ public class Car extends CarCard{
 		return price;
 	}
 
-	public HBox getContainer() {
-		return container;
-	}
-
 	public void setPrice(int price) {
 		this.price = price;
 	}
-
-
 	
 	protected void buy() {
-		VBox parent = (VBox) container.getParent();
-		parent.getChildren().remove(container);
+		remove();
 		array.remove(this);
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 }

@@ -23,7 +23,7 @@
                   <Image url="@../assets/Logo.png" />
                </image>
             </ImageView>
-            <Button mnemonicParsing="false" onAction="#goBack" prefHeight="27.0" prefWidth="109.0" text="Back">
+            <Button mnemonicParsing="false" onAction="#goBack" prefHeight="30.0" prefWidth="92.0" text="Back">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -48,10 +48,6 @@
                <children>
                   <VBox prefHeight="334.0" prefWidth="408.0" spacing="10.0" style="-fx-alignment: center;">
                      <children>
-                        <TextField prefHeight="40.0" prefWidth="274.0" promptText="Car ID">
-                           <VBox.margin>
-                              <Insets left="40.0" right="40.0" />
-                           </VBox.margin></TextField>
                         <AnchorPane>
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
