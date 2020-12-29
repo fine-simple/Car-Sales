@@ -53,25 +53,25 @@
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>
                            <children>
-                              <TextField prefHeight="40.0" prefWidth="300.0" promptText="Company" />
+                              <TextField id="company" prefHeight="40.0" prefWidth="300.0" promptText="Company" />
                            </children>
                         </AnchorPane>
-                        <TextField prefHeight="40.0" prefWidth="226.0" promptText="Model">
+                        <TextField id="model" prefHeight="40.0" prefWidth="226.0" promptText="Model">
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField prefHeight="40.0" prefWidth="274.0" promptText="Year">
+                        <TextField id="year" prefHeight="40.0" prefWidth="274.0" promptText="Year">
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField prefHeight="40.0" prefWidth="226.0" promptText="Color">
+                        <TextField id="color" prefHeight="40.0" prefWidth="226.0" promptText="Color">
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField prefHeight="40.0" prefWidth="300.0" promptText="Price">
+                        <TextField id="price" prefHeight="40.0" prefWidth="300.0" promptText="Price">
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>
