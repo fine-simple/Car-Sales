@@ -8,7 +8,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
+import main.java.component.Car;
 
 public class CarAdd {
     
@@ -24,5 +28,24 @@ public class CarAdd {
     @FXML
     private void goBack(ActionEvent e) throws IOException {
         Admin.loadScene(e);
+    }
+    @FXML
+    private TextField CarID;
+    @FXML
+    private TextField Company;
+    @FXML
+    private TextField Model;
+    @FXML
+    private TextField Year;
+    @FXML
+    private TextField Price;
+    @FXML
+    private TextField Color;
+    //
+
+
+    private void addCar()
+    {
+        Car.array.add(new Car (Company.getText(),Model.getText(),Integer.parseInt(Year.getText()),Integer.parseInt(Price.getText()),Color.getText() ));
     }
 }
