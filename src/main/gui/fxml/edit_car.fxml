@@ -48,22 +48,15 @@
                <children>
                   <VBox prefHeight="334.0" prefWidth="408.0" spacing="10.0" style="-fx-alignment: center;">
                      <children>
-<<<<<<< Updated upstream
-=======
-                        <TextField id="company" prefHeight="40.0" prefWidth="274.0" promptText="Car ID">
-                           <VBox.margin>
-                              <Insets left="40.0" right="40.0" />
-                           </VBox.margin></TextField>
->>>>>>> Stashed changes
                         <AnchorPane>
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>
                            <children>
-                              <TextField id="model" prefHeight="40.0" prefWidth="300.0" promptText="Company" />
+                              <TextField id="company" prefHeight="40.0" prefWidth="300.0" promptText="Company" />
                            </children>
                         </AnchorPane>
-                        <TextField prefHeight="40.0" prefWidth="226.0" promptText="Model">
+                        <TextField id="y" prefHeight="40.0" prefWidth="226.0" promptText="Model">
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>

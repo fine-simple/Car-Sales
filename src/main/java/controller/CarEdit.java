@@ -8,12 +8,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.java.component.Car;
 
 public class CarEdit {
 
 	private static Car activeCar = null;
+	@FXML
+	private TextField company;
+	@FXML
+	private TextField model;
+
+	@FXML
+	private TextField year;
+
+	@FXML
+	private TextField color;
+	@FXML
+	private TextField price;
 
 	@FXML
 	public static void loadScene(ActionEvent e) throws IOException {
