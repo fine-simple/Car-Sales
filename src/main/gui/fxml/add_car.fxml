@@ -48,10 +48,6 @@
                <children>
                   <VBox prefHeight="334.0" prefWidth="408.0" spacing="10.0" style="-fx-alignment: center;">
                      <children>
-                        <TextField prefHeight="40.0" prefWidth="274.0" promptText="Car ID">
-                           <VBox.margin>
-                              <Insets left="40.0" right="40.0" />
-                           </VBox.margin></TextField>
                         <AnchorPane>
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
