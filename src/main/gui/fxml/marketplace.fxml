@@ -23,8 +23,8 @@
          <children>
             <HBox prefHeight="30.0" prefWidth="647.0">
                <children>
-                  <TextField maxHeight="30.0" prefHeight="30.0" prefWidth="397.0" promptText="Search here ..." />
-                  <Button maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Search" />
+                  <TextField fx:id="search" maxHeight="30.0" prefHeight="30.0" prefWidth="397.0" promptText="Search here ..." />
+                  <Button maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" onAction="#search" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Search" />
                </children>
             </HBox>
             <HBox alignment="CENTER" />
