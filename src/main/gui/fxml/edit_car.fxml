@@ -56,7 +56,7 @@
                               <TextField id="company" prefHeight="40.0" prefWidth="300.0" promptText="Company" />
                            </children>
                         </AnchorPane>
-                        <TextField id="y" prefHeight="40.0" prefWidth="226.0" promptText="Model">
+                        <TextField id="model" prefHeight="40.0" prefWidth="226.0" promptText="Model">
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>
