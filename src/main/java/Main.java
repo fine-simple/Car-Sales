@@ -26,6 +26,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// Start Login Page
+
 		Parent root = FXMLLoader.load(getClass().getResource("../gui/fxml/edit_car.fxml"));
 		Scene scene = new Scene(root);
 

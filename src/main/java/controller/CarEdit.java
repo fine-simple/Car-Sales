@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,6 +17,9 @@ import javafx.stage.Stage;
 import main.java.component.Car;
 
 public class CarEdit implements Initializable {
+
+    private static CarEdit instance = null;
+    private Scene scene = null;
 
 	private static Car activeCar = null;
 	@FXML
@@ -31,19 +35,34 @@ public class CarEdit implements Initializable {
 	@FXML
 	private TextField price;
 
-	@FXML
-	public static void loadScene(ActionEvent e) throws IOException {
-		Parent root = FXMLLoader.load(CarEdit.class.getResource("../../gui/fxml/edit_car.fxml"));
-
-		// Get the Stage from Event Called
-		Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
-		stageTheEventBelongsTo.setScene(new Scene(root));
-	}
+    @FXML
+    public void loadScene(Event e) {
+        
+        Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        
+        if(scene == null) {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("../../gui/fxml/edit_car.fxml"));
+                scene = new Scene(root);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+        
+        // Get the Stage from Event Called
+        stageTheEventBelongsTo.setScene(scene);
+    }
 
 	@FXML
 	private void goBack(ActionEvent e) throws IOException {
-		Admin.loadScene(e);
+		AdminPage.getInstance().loadScene(e);
 	}
+    
+    public static CarEdit getInstance() {
+        if(instance == null)
+            instance = new CarEdit();
+        return instance;
+    }
 
 	public static void setActiveCar(Car activeCar) {
 		CarEdit.activeCar = activeCar;
@@ -55,5 +74,4 @@ public class CarEdit implements Initializable {
 		model.setText(activeCar.getModel());
 		year.setText(activeCar.getDate() + "");
 	}
-
 }
