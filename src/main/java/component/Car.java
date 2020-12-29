@@ -52,7 +52,7 @@ public class Car extends CarCard {
 		this.price = price;
 	}
 	
-	protected void buy() {
+	public void buy() {
 		remove();
 		array.remove(this);
 	}
