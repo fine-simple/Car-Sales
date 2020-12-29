@@ -22,6 +22,6 @@ public class CarDelete {
 
     @FXML
     private void goBack(ActionEvent e) throws IOException {
-        Admin.loadScene(e);
+        AdminPage.getInstance().loadScene(e);
     }
 }

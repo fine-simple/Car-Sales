@@ -65,7 +65,7 @@ public class Login implements Controller {
     private void login(Event e) throws IOException {
         
         if(email.getText().equals(main.java.component.Admin.admin.getEmail()) && password.getText().equals(main.java.component.Admin.admin.getPassword())) {
-            main.java.controller.Admin.loadScene(e);
+            main.java.controller.AdminPage.getInstance().loadScene(e);
         }
         else {
             for(Client client: Client.array) {

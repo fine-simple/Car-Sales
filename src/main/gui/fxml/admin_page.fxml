@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="500.0" maxWidth="700.0" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" stylesheets="@../stylesheets/dark-theme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.Marketplace">
+<HBox maxHeight="500.0" maxWidth="700.0" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" stylesheets="@../stylesheets/dark-theme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.Admin">
    <children>
       <VBox prefWidth="92.0">
          <HBox.margin>
@@ -23,11 +23,11 @@
                         <Image url="@../assets/Logo.png" />
                      </image>
                   </ImageView>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="107.0" text="Add" />
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="107.0" text="Delete" />
+                  <Button mnemonicParsing="false" onAction="#goToAdd" prefHeight="26.0" prefWidth="107.0" text="Add" />
+                  <Button mnemonicParsing="false" onAction="#deleteCars" prefHeight="26.0" prefWidth="107.0" text="Delete" />
                </children>
             </VBox>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="107.0" text="Log Out" />
+            <Button mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="107.0" text="Log Out" />
          </children>
       </VBox>
       <VBox alignment="TOP_CENTER" maxHeight="500.0" maxWidth="700.0" minHeight="500.0" minWidth="588.0" prefHeight="500.0" prefWidth="588.0" spacing="20.0" stylesheets="@../stylesheets/dark-theme.css">
