@@ -8,6 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import main.gui.java.CarCard;
 import main.java.component.Cars;
@@ -41,7 +44,12 @@ public class CarAdd extends CarMod {
     @FXML
     private void addCar(Event e)
     {
-        Cars.getArray().add(new CarCard(getCompany().getText(),getModel().getText(),Integer.parseInt(getYear().getText()),Integer.parseInt(getPrice().getText())));
-        AdminPage.getInstance().loadScene(e);
+        if(validateAll()) {
+            Cars.getArray().add(new CarCard(getCompany().getText(),getModel().getText(),Integer.parseInt(getYear().getText()),Integer.parseInt(getPrice().getText())));
+			Alert alert = new Alert(AlertType.INFORMATION, "Car edited successfully", ButtonType.OK);
+			alert.show();
+			// Go AdminPage
+			AdminPage.getInstance().loadScene(e);
+        }
     }
 }
