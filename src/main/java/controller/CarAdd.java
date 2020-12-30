@@ -8,12 +8,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.gui.java.CarCard;
 import main.java.component.Cars;
 
-public class CarAdd {
+public class CarAdd extends CarMod {
 
     private static CarAdd instance = null;
     private Scene scene = null;
@@ -40,25 +39,9 @@ public class CarAdd {
     }
 
     @FXML
-    private void goBack(Event e) {
-        AdminPage.getInstance().loadScene(e);
-    }
-
-    @FXML
-    private TextField company;
-    @FXML
-    private TextField model;
-    @FXML
-    private TextField year;
-    @FXML
-    private TextField price;
-    @FXML
-    private TextField color;
-
-    @FXML
     private void addCar(Event e)
     {
-        Cars.getArray().add(new CarCard(company.getText(),model.getText(),Integer.parseInt(year.getText()),Integer.parseInt(price.getText())));
+        Cars.getArray().add(new CarCard(getCompany().getText(),getModel().getText(),Integer.parseInt(getYear().getText()),Integer.parseInt(getPrice().getText())));
         AdminPage.getInstance().loadScene(e);
     }
 }
