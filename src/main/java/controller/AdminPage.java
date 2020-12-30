@@ -8,21 +8,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import main.java.component.Car;
+import main.gui.java.CarCard;
+import main.java.component.Cars;
 
-public class AdminPage {
+public class AdminPage extends Marketplace {
 
     private static AdminPage instance = null;
     
     private Scene scene = null;
-    
-    @FXML
-    private TextField search;
-    @FXML
-    private VBox list;
     
     @FXML
     public void loadScene(Event e) {
@@ -43,73 +38,31 @@ public class AdminPage {
     }
 
     @FXML
-    private void goToEdit(Event e) {
-        CarEdit.getInstance().loadScene(e);
-    }
-
-    @FXML
     private void goToAdd(Event e) {
         CarAdd.getInstance().loadScene(e);
     }
 
     @FXML
     private void deleteCars(Event e) {
-        for (int i = 0; i < Car.array.size(); i++) {
-            if(Car.array.get(i).isSelected()) {
-                Car.array.get(i).buy();
+        for (int i = 0; i < Cars.getArray().size(); i++) {
+            CarCard car = Cars.getArray().get(i);
+            if(car.isSelected()) {
+                car.remove();
                 i--;
             }
         }
     }
 
-    @FXML
-    private void logout() {
+    void addCustomOption(CarCard car) {
+        Button edit = new Button("Edit");
 
-    }
-
-    @FXML
-    private void search(Event e){
-        if(search.getText().length()==0) {
-            Car.array.forEach(car -> {
-                list.getChildren().remove(car.getContainer());
-            });
-            Car.array.forEach(car -> {
-                list.getChildren().add(car.getContainer());
-            });
-        }
-        else{
-            Car.array.forEach(car -> {
-                list.getChildren().remove(car.getContainer());
-            });
-            for(int i=0;i<Car.array.size();i++) {
-                if (isNumeric(search.getText())){
-                    if(search.getText().length()>4){
-                        if(Integer.parseInt(search.getText()) == Car.array.get(i).getPrice()){
-                            list.getChildren().add(Car.array.get(i).getContainer());
-                        }
-                    }
-                    else{
-                        if(Integer.parseInt(search.getText()) == Car.array.get(i).getDate()){
-                            list.getChildren().add(Car.array.get(i).getContainer());
-                        }
-                    }
-                }
-                else if (Car.array.get(i).getName().toLowerCase().contains(search.getText().toLowerCase()) ) {
-                    list.getChildren().add(Car.array.get(i).getContainer());
-                }
-            }
-
-        }
-    }
-    
-    private static boolean isNumeric(String str){
-        try{
-            Double.parseDouble(str);
-            return true;
-        }
-        catch(NumberFormatException e){
-            return false;
-        }
+        edit.setOnAction(e -> {
+            CarEdit.setActiveCar(car);
+            CarEdit.getInstance().loadScene(e);
+        });
+        if(car.getContainer().getChildren().size() > 2)
+            car.getContainer().getChildren().remove(2);
+        car.getContainer().getChildren().add(edit);
     }
 
 	public static AdminPage getInstance() {

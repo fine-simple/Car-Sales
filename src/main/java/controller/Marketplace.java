@@ -11,10 +11,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import main.java.component.Car;
+import main.gui.java.CarCard;
+import main.java.component.Cars;
 
 public class Marketplace implements Initializable, Controller {
 
@@ -44,51 +49,73 @@ public class Marketplace implements Initializable, Controller {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        Car.array.forEach(car -> {
+        Cars.getArray().forEach(car -> {
             list.getChildren().add(car.getContainer());
+            addCustomOption(car);
         });
+
     }
 
+    void addCustomOption(CarCard car) {
+        Button buy = new Button("Buy");
+        
+        buy.setOnAction(e -> {
+            Alert confirmBox = new Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION, "Are you sure you want to buy this car?");
+            if(confirmBox.showAndWait().get() == ButtonType.OK) {
+                car.remove();
+                new Alert(AlertType.INFORMATION, "Car Bought Successfully").show();
+            }
+        });
+
+        if(car.getContainer().getChildren().size() > 2)
+            car.getContainer().getChildren().remove(2);
+        car.getContainer().getChildren().add(buy);
+    }
 
     @FXML
     private void search(Event e){
         if(search.getText().length()==0) {
-            Car.array.forEach(car -> {
-                list.getChildren().remove(car.getContainer());
-            });
-            Car.array.forEach(car -> {
-                list.getChildren().add(car.getContainer());
+            list.getChildren().clear();
+            Cars.getArray().forEach(car -> {
+                list.getChildren().add((car.getContainer()));
             });
         }
         else{
-            Car.array.forEach(car -> {
+            Cars.getArray().forEach(car -> {
                 list.getChildren().remove(car.getContainer());
             });
-            for(int i=0;i<Car.array.size();i++) {
+            for(int i=0;i<Cars.getArray().size();i++) {
                 if (isNumeric(search.getText())){
                     if(search.getText().length()>4){
-                        if(Integer.parseInt(search.getText()) == Car.array.get(i).getPrice()){
-                            list.getChildren().add(Car.array.get(i).getContainer());
+                        if(Integer.parseInt(search.getText()) == Cars.getArray().get(i).getPrice()){
+                            list.getChildren().add(Cars.getArray().get(i).getContainer());
                         }
                     }
                     else{
-                        if(Integer.parseInt(search.getText()) == Car.array.get(i).getDate()){
-                            list.getChildren().add(Car.array.get(i).getContainer());
+                        if(Integer.parseInt(search.getText()) == Cars.getArray().get(i).getYear()){
+                            list.getChildren().add(Cars.getArray().get(i).getContainer());
                         }
                     }
                 }
-                else if (Car.array.get(i).getName().toLowerCase().contains(search.getText().toLowerCase()) ) {
-                    list.getChildren().add(Car.array.get(i).getContainer());
+                else if (Cars.getArray().get(i).getCompany().toLowerCase().contains(search.getText().toLowerCase()) ) {
+                    list.getChildren().add(Cars.getArray().get(i).getContainer());
                 }
             }
 
         }
     }
+
+    @FXML
+    private void logout(Event e) {
+        Login.getInstance().loadScene(e);
+    }
+    
     public static Marketplace getInstance() {
         if(instance == null)
             instance = new Marketplace();
         return instance;
     }
+
     private static boolean isNumeric(String str){
         try{
             Double.parseDouble(str);

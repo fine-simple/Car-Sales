@@ -68,7 +68,7 @@ public class Login implements Controller {
             main.java.controller.AdminPage.getInstance().loadScene(e);
         }
         else {
-            for(Client client: Client.array) {
+            for(Client client: Client.getArray()) {
                 if(client.getEmail().equals(email.getText()) && client.getPassword().equals(password.getText())) {
                     Marketplace.getInstance().loadScene(e);
                     return;

@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -48,30 +47,27 @@
                <children>
                   <VBox prefHeight="334.0" prefWidth="408.0" spacing="10.0" style="-fx-alignment: center;">
                      <children>
-                        <AnchorPane>
-                           <VBox.margin>
-                              <Insets left="40.0" right="40.0" />
-                           </VBox.margin>
-                           <children>
-                              <TextField id="company" prefHeight="40.0" prefWidth="300.0" promptText="Company" />
-                           </children>
-                        </AnchorPane>
-                        <TextField id="model" prefHeight="40.0" prefWidth="226.0" promptText="Model">
+                        <TextField id="company" fx:id="company" prefHeight="40.0" prefWidth="300.0" promptText="Company">
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField id="year" prefHeight="40.0" prefWidth="274.0" promptText="Year">
+                        <TextField id="model" fx:id="model" prefHeight="40.0" prefWidth="226.0" promptText="Model">
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField id="color" prefHeight="40.0" prefWidth="226.0" promptText="Color">
+                        <TextField id="year" fx:id="year" prefHeight="40.0" prefWidth="274.0" promptText="Year">
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField id="price" prefHeight="40.0" prefWidth="300.0" promptText="Price">
+                        <TextField id="color" fx:id="color" prefHeight="40.0" prefWidth="226.0" promptText="Color">
+                           <VBox.margin>
+                              <Insets left="40.0" right="40.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField id="price" fx:id="price" prefHeight="40.0" prefWidth="300.0" promptText="Price">
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>

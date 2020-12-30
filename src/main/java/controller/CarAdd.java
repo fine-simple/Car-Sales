@@ -10,7 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import main.java.component.Car;
+import main.gui.java.CarCard;
+import main.java.component.Cars;
 
 public class CarAdd {
 
@@ -54,11 +55,10 @@ public class CarAdd {
     private TextField Price;
     @FXML
     private TextField Color;
-    
 
     @FXML
     private void addCar()
     {
-        Car.array.add(new Car (Company.getText(),Model.getText(),Integer.parseInt(Year.getText()),Integer.parseInt(Price.getText()),Color.getText() ));
+        Cars.getArray().add(new CarCard(Company.getText(),Model.getText(),Integer.parseInt(Year.getText()),Integer.parseInt(Price.getText()),Color.getText() ));
     }
 }

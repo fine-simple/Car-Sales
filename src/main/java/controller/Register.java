@@ -75,7 +75,13 @@ public class Register implements Controller {
         String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
 
         if(email.getText().matches(regex))
+        {
+            for(Client x: Client.getArray()) {
+                if(x.getEmail().equals(email.getText()))
+                    return false;
+            }
             return true;
+        }
         else
             return false;
     }
@@ -99,7 +105,8 @@ public class Register implements Controller {
         }
         else if(!validateEmail()) {
             error.setHeaderText("Email Error");
-            error.setContentText("Please Make Sure you enter valid email format");
+            error.setContentText("Please Make Sure you enter valid email format\n" +
+                                 "Make sure you are not already registered");
             error.show();
         }
         else if(!validatePassword()) {
@@ -109,7 +116,7 @@ public class Register implements Controller {
         }
         else {
             //Add to users database
-            Client.array.add(new Client(fullName.getText(), email.getText(), password.getText()));
+            Client.getArray().add(new Client(fullName.getText(), email.getText(), password.getText()));
             
             //Notify to added user
             Alert alert = new Alert(AlertType.INFORMATION, "User Added Successfully", ButtonType.OK);

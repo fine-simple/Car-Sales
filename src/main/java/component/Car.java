@@ -1,47 +1,20 @@
 package main.java.component;
 
-import java.util.ArrayList;
-
-import main.gui.java.CarCard;
-
-public class Car extends CarCard {
+public class Car {
 	
-	private int date, price;
-	private String model, color;
+	private int year, price;
+	private String company, model, color;
 
-	public static ArrayList<Car> array = new ArrayList<>();
-
-	public Car(String name, String model, int date, int price,String imagePath, String color) {
-		super(name, model, price, color, array.toArray().length +1, imagePath);
-		this.name.setText(name);
+	public Car(String company, String model, int year, int price, String color) {
+		this.company = company;
 		this.model = model;
 		this.color = color;
-		this.date = date;
+		this.year = year;
 		this.price = price;
 	}
 
-	public Car(String name, String model, int date, int price, String imagePath) {
-		this(name, model, date, price, imagePath , "Not Defined");
-	}
-
-	public Car(String name, String model, int date, int price) {
-		this(name, model, date, price, "main/gui/assets/no-image.gif");
-	}
-
-	public String getName() {
-		return name.getText();
-	}
-
-	public void setName(String name) {
-		this.name.setText(name);;
-	}
-
-	public int getDate() {
-		return date;
-	}
-
-	public void setDate(int date) {
-		this.date = date;
+	public Car(String company, String model, int year, int price) {
+		this(company, model, year, price , "Not Defined");
 	}
 
 	public int getPrice() {
@@ -50,11 +23,6 @@ public class Car extends CarCard {
 
 	public void setPrice(int price) {
 		this.price = price;
-	}
-	
-	public void buy() {
-		remove();
-		array.remove(this);
 	}
 
 	public String getModel() {
@@ -71,5 +39,21 @@ public class Car extends CarCard {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
 	}
 }
