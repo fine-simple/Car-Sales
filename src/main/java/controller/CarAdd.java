@@ -43,22 +43,22 @@ public class CarAdd {
     private void goBack(Event e) {
         AdminPage.getInstance().loadScene(e);
     }
-    @FXML
-    private TextField CarID;
-    @FXML
-    private TextField Company;
-    @FXML
-    private TextField Model;
-    @FXML
-    private TextField Year;
-    @FXML
-    private TextField Price;
-    @FXML
-    private TextField Color;
 
     @FXML
-    private void addCar()
+    private TextField company;
+    @FXML
+    private TextField model;
+    @FXML
+    private TextField year;
+    @FXML
+    private TextField price;
+    @FXML
+    private TextField color;
+
+    @FXML
+    private void addCar(Event e)
     {
-        Cars.getArray().add(new CarCard(Company.getText(),Model.getText(),Integer.parseInt(Year.getText()),Integer.parseInt(Price.getText()),Color.getText() ));
+        Cars.getArray().add(new CarCard(company.getText(),model.getText(),Integer.parseInt(year.getText()),Integer.parseInt(price.getText())));
+        AdminPage.getInstance().loadScene(e);
     }
 }

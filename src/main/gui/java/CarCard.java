@@ -36,11 +36,7 @@ public class CarCard extends Car {
         this.company.setFont(heading1);
         this.company.setText(super.getCompany());
 		details.setFont(heading2);
-		details.setText("ID : " + (Cars.getArray().size() + 1));
-		details.setText(details.getText() + '\n' + "Model : " + super.getModel());
-		details.setText(details.getText() + '\n' + "Color : " + super.getColor());
-		details.setText(details.getText() + '\n' + "Price : " + String.format("%,d", super.getPrice()) + " EGP");
-		
+		updateDetails();
         //Car Picture
         this.pic.setImage(new Image(imagePath, 150, 100 ,false, false));
         //Container
@@ -54,14 +50,20 @@ public class CarCard extends Car {
         });
     }
 
-    public CarCard(String company, String model, int year, int price, String imagePath, String color) {
+    public void updateDetails() {
+        details.setText("Model : " + super.getModel());
+		details.setText(details.getText() + '\n' + "Color : " + super.getColor());
+		details.setText(details.getText() + '\n' + "Price : " + String.format("%,d", super.getPrice()) + " EGP");
+    }
+
+    public CarCard(String company, String model, int year, int price, String color, String imagePath) {
         super(company, model, year, price, color);
         setGUI(imagePath);
     }
 
-    public CarCard(String company, String model, int year, int price, String imagePath) {
-        super(company, model, year, price);
-        setGUI(imagePath);
+    public CarCard(String company, String model, int year, int price, String color) {
+        super(company, model, year, price, color);
+        setGUI("main/gui/assets/no-image.gif");
     }
 
     public CarCard(String company, String model, int year, int price) {

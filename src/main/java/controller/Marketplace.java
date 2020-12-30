@@ -24,7 +24,7 @@ import main.java.component.Cars;
 public class Marketplace implements Initializable, Controller {
 
     private static Marketplace instance = null;
-    private Scene scene = null;
+
     @FXML
     private TextField search;
     @FXML
@@ -32,19 +32,14 @@ public class Marketplace implements Initializable, Controller {
 
     @FXML
     public void loadScene(Event e) {
-        Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
-
-        if(scene == null) {
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("../../gui/fxml/marketplace.fxml"));
-                // Get the Stage from Event Called
-                scene = new Scene(root);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("../../gui/fxml/marketplace.fxml"));
+            // Get the Stage from Event Called
+            Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            stageTheEventBelongsTo.setScene(new Scene(root));
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
-
-        stageTheEventBelongsTo.setScene(scene);
     }
 
     @Override

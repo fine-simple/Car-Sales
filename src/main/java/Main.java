@@ -15,11 +15,11 @@ public class Main extends Application {
 		// Sample Data
 		Client.getArray().add(new Client("fullName", "email", "password"));
 		Cars.getArray().add(new CarCard("Hundai", "7mada", 2009, 3242342));
-		Cars.getArray().add(new CarCard("Tesla", "S24", 2009, 10000000, "main/gui/assets/Volvo_XC40_2018.jpg"));
-		Cars.getArray().add(new CarCard("Tesla", "S25", 2010, 32, "main/gui/assets/Volvo_XC40_2018.jpg"));
-		Cars.getArray().add(new CarCard("Tesla", "S26", 2010, 32, "main/gui/assets/Volvo_XC40_2018.jpg"));
-		Cars.getArray().add(new CarCard("Tesla", "S27", 32, 32, "main/gui/assets/Volvo_XC40_2018.jpg"));
-		Cars.getArray().add(new CarCard("Tesla", "S28", 2009, 32, "main/gui/assets/Volvo_XC40_2018.jpg"));
+		Cars.getArray().add(new CarCard("Tesla", "S24", 2009, 10000000, "Blue", "main/gui/assets/Volvo_XC40_2018.jpg"));
+		Cars.getArray().add(new CarCard("Tesla", "S25", 2010, 32, "Red", "main/gui/assets/Volvo_XC40_2018.jpg"));
+		Cars.getArray().add(new CarCard("Tesla", "S26", 2010, 32, "Green", "main/gui/assets/Volvo_XC40_2018.jpg"));
+		Cars.getArray().add(new CarCard("Tesla", "S27", 32, 32, "Yellow", "main/gui/assets/Volvo_XC40_2018.jpg"));
+		Cars.getArray().add(new CarCard("Tesla", "S28", 2009, 32, "Black", "main/gui/assets/Volvo_XC40_2018.jpg"));
 
 		launch(args);
 	}

@@ -53,30 +53,30 @@
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>
                            <children>
-                              <TextField prefHeight="40.0" prefWidth="300.0" promptText="Company" />
+                              <TextField fx:id="company" prefHeight="40.0" prefWidth="300.0" promptText="Company" />
                            </children>
                         </AnchorPane>
-                        <TextField prefHeight="40.0" prefWidth="226.0" promptText="Model">
+                        <TextField fx:id="model" prefHeight="40.0" prefWidth="226.0" promptText="Model">
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField prefHeight="40.0" prefWidth="274.0" promptText="Year">
+                        <TextField fx:id="year" prefHeight="40.0" prefWidth="274.0" promptText="Year">
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField prefHeight="40.0" prefWidth="226.0" promptText="Color">
+                        <TextField fx:id="color" prefHeight="40.0" prefWidth="226.0" promptText="Color">
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField prefHeight="40.0" prefWidth="300.0" promptText="Price">
+                        <TextField fx:id="price" prefHeight="40.0" prefWidth="300.0" promptText="Price">
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />
                            </VBox.margin>
                         </TextField>
-                        <Button mnemonicParsing="false" prefWidth="120.0" text="Add Car">
+                        <Button mnemonicParsing="false" onAction="#addCar" prefWidth="120.0" text="Add Car">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>

@@ -16,25 +16,17 @@ import main.java.component.Cars;
 public class AdminPage extends Marketplace {
 
     private static AdminPage instance = null;
-    
-    private Scene scene = null;
-    
+        
     @FXML
     public void loadScene(Event e) {
-        
-        // Get the Stage from Event Called
-        Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        
-        if(scene == null) {
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("../../gui/fxml/admin_page.fxml"));
-                scene = new Scene(root);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("../../gui/fxml/admin_page.fxml"));
+            // Get the Stage from Event Called
+            Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            stageTheEventBelongsTo.setScene(new Scene(root));
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
-
-        stageTheEventBelongsTo.setScene(scene);
     }
 
     @FXML
