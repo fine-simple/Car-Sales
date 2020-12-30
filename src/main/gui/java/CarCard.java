@@ -34,7 +34,6 @@ public class CarCard extends Car {
 		
 		//set Font size
         this.company.setFont(heading1);
-        this.company.setText(super.getCompany());
 		details.setFont(heading2);
 		updateDetails();
         //Car Picture
@@ -51,6 +50,7 @@ public class CarCard extends Car {
     }
 
     public void updateDetails() {
+        this.company.setText(super.getCompany());
         details.setText("Model : " + super.getModel());
 		details.setText(details.getText() + '\n' + "Color : " + super.getColor());
 		details.setText(details.getText() + '\n' + "Price : " + String.format("%,d", super.getPrice()) + " EGP");
