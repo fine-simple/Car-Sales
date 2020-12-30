@@ -45,6 +45,7 @@ public class Marketplace implements Initializable, Controller {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         Cars.getArray().forEach(car -> {
+            car.updateDetails();
             list.getChildren().add(car.getContainer());
             addCustomOption(car);
         });

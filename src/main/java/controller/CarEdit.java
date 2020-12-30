@@ -75,9 +75,9 @@ public class CarEdit implements Initializable {
 	}
 
 	private boolean validateModel() {
-		String RegaxModel = "\\p{Upper}(\\p{Lower}+\\s?)";
-		String patternModel = "(" + RegaxModel + "){1,2}";
-		if (model.getText().matches(patternModel))
+		String RegaxModel = "^[A-Za-z][A-Za-z0-9]*";
+
+		if (model.getText().matches(RegaxModel))
 			return true;
 		else if (model.getText().isEmpty())
 			return false;
@@ -122,7 +122,7 @@ public class CarEdit implements Initializable {
 
 		else if (!validateModel()) {
 			error.setHeaderText("Model Name Error");
-			error.setContentText("Please Make Sure you enter each word capitalized with maximum 3 words");
+			error.setContentText("Please Make Sure you enter valid Model format");
 			error.show();
 		}
 
