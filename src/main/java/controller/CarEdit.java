@@ -59,7 +59,12 @@ public class CarEdit implements Initializable {
 	public static void setActiveCar(CarCard activeCar) {
 		CarEdit.activeCar = activeCar;
 	}
-
+	
+	@FXML 
+	public void editBtnPressed() {
+		
+	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		company.setText(activeCar.getCompany());
