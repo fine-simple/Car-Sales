@@ -26,7 +26,7 @@ public class Marketplace implements Initializable, Controller {
     private static Marketplace instance = null;
 
     @FXML
-    private TextField search;
+    private TextField searchTextBox;
     @FXML
     private VBox list;
 
@@ -70,7 +70,7 @@ public class Marketplace implements Initializable, Controller {
 
     @FXML
     private void search(Event e){
-        if(search.getText().length()==0) {
+        if(searchTextBox.getText().length()==0) {
             list.getChildren().clear();
             Cars.getArray().forEach(car -> {
                 list.getChildren().add((car.getContainer()));
@@ -81,19 +81,19 @@ public class Marketplace implements Initializable, Controller {
                 list.getChildren().remove(car.getContainer());
             });
             for(int i=0;i<Cars.getArray().size();i++) {
-                if (isNumeric(search.getText())){
-                    if(search.getText().length()>4){
-                        if(Integer.parseInt(search.getText()) == Cars.getArray().get(i).getPrice()){
+                if (isNumeric(searchTextBox.getText())){
+                    if(searchTextBox.getText().length()>4){
+                        if(Integer.parseInt(searchTextBox.getText()) == Cars.getArray().get(i).getPrice()){
                             list.getChildren().add(Cars.getArray().get(i).getContainer());
                         }
                     }
                     else{
-                        if(Integer.parseInt(search.getText()) == Cars.getArray().get(i).getYear()){
+                        if(Integer.parseInt(searchTextBox.getText()) == Cars.getArray().get(i).getYear()){
                             list.getChildren().add(Cars.getArray().get(i).getContainer());
                         }
                     }
                 }
-                else if (Cars.getArray().get(i).getCompany().toLowerCase().contains(search.getText().toLowerCase()) ) {
+                else if (Cars.getArray().get(i).getCompany().toLowerCase().contains(searchTextBox.getText().toLowerCase()) ) {
                     list.getChildren().add(Cars.getArray().get(i).getContainer());
                 }
             }

@@ -55,7 +55,8 @@ public class CarEdit extends CarMod implements Initializable {
 			activeCar.setModel(getModel().getText());
 			activeCar.setPrice(Integer.parseInt(getPrice().getText()));
 			activeCar.setYear(Integer.parseInt(getYear().getText()));
-
+			activeCar.setColor(getColor().getText());
+			activeCar.getPic().setImage(getCarImageView().getImage());
 			// Notify to edited car
 			Alert alert = new Alert(AlertType.INFORMATION, "Car edited successfully", ButtonType.OK);
 			alert.show();
@@ -72,6 +73,7 @@ public class CarEdit extends CarMod implements Initializable {
 		getYear().setText(String.valueOf(activeCar.getYear()));
 		getColor().setText(activeCar.getColor());
 		getPrice().setText(String.valueOf(activeCar.getPrice()));
+		getCarImageView().setImage(activeCar.getPic().getImage());
 	}
 
 }

@@ -42,11 +42,11 @@ public class CarAdd extends CarMod {
     }
 
     @FXML
-    private void addCar(Event e)
+    private void addBtnPressed(Event e)
     {
         if(validateAll()) {
-            Cars.getArray().add(new CarCard(getCompany().getText(),getModel().getText(),Integer.parseInt(getYear().getText()),Integer.parseInt(getPrice().getText())));
-			Alert alert = new Alert(AlertType.INFORMATION, "Car edited successfully", ButtonType.OK);
+            Cars.getArray().add(new CarCard(getCompany().getText(),getModel().getText(),Integer.parseInt(getYear().getText()),Integer.parseInt(getPrice().getText()), getColor().getText(), getCarImageView().getImage().getUrl()));
+			Alert alert = new Alert(AlertType.INFORMATION, "Car Added successfully", ButtonType.OK);
 			alert.show();
 			// Go AdminPage
 			AdminPage.getInstance().loadScene(e);

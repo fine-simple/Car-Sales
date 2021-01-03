@@ -110,4 +110,8 @@ public class CarCard extends Car {
 		return container;
     }
 
+    public ImageView getPic() {
+        return pic;
+    }
+
 }

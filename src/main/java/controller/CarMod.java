@@ -1,11 +1,21 @@
 package main.java.controller;
 
+import java.io.File;
+
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public abstract class CarMod {
 	@FXML
@@ -18,6 +28,8 @@ public abstract class CarMod {
 	private TextField color;
 	@FXML
 	private TextField price;
+	@FXML
+	private ImageView carImageView;
 
 	@FXML
 	public abstract void loadScene(Event e);
@@ -123,4 +135,22 @@ public abstract class CarMod {
 		return price;
 	}
 
+	public ImageView getCarImageView() {
+		return carImageView;
+	}
+
+	@FXML
+	public void getImageFile(Event e) {
+		MouseEvent eMouse = (MouseEvent) e;
+
+		if(eMouse.getButton() == MouseButton.PRIMARY) {
+			FileChooser imageFile = new FileChooser();
+			imageFile.getExtensionFilters()
+					.addAll(new ExtensionFilter("Images", "*.jpg", "*.jpeg", "*.png", "*.bmp", "*.gif"));
+			File file = imageFile.showOpenDialog(((Scene) ((Node) e.getSource()).getScene()).getWindow());
+			Image image = new Image(file.toURI().toString(), 150, 100 , false, false);
+			carImageView.setImage(image);
+		}
+	}
+	
 }

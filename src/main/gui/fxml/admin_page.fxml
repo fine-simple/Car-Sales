@@ -32,12 +32,7 @@
       </VBox>
       <VBox alignment="TOP_CENTER" maxHeight="500.0" maxWidth="700.0" minHeight="500.0" minWidth="588.0" prefHeight="500.0" prefWidth="588.0" spacing="20.0" stylesheets="@../stylesheets/dark-theme.css">
          <children>
-            <HBox prefHeight="30.0" prefWidth="647.0">
-               <children>
-                  <TextField fx:id="search" maxHeight="30.0" prefHeight="30.0" prefWidth="397.0" promptText="Search here ..." />
-                  <Button maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#search" prefHeight="30.0" prefWidth="150.0" text="Search" />
-               </children>
-            </HBox>
+            <TextField fx:id="searchTextBox" maxHeight="64.0" onKeyTyped="#search" prefHeight="64.0" prefWidth="523.0" promptText="Search here ..." />
             <HBox alignment="CENTER" />
             <ScrollPane prefHeight="450.0" prefWidth="630.0">
                <content>
