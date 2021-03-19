@@ -17,7 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-public abstract class CarMod {
+public abstract class CarMod implements Controller{
 	@FXML
 	private TextField company;
 	@FXML

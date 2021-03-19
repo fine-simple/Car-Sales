@@ -1,6 +1,6 @@
 package main.java.component;
 
-public class User {
+public abstract class User {
 	private String fullName;
 	private String email;
 	private String password;
