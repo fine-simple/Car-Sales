@@ -5,7 +5,6 @@ import java.io.File;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -17,7 +16,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-public abstract class CarMod implements Controller{
+public abstract class CarMod implements Controller {
+
+	//// Attributes/Fields
+
 	@FXML
 	private TextField company;
 	@FXML
@@ -31,6 +33,7 @@ public abstract class CarMod implements Controller{
 	@FXML
 	private ImageView carImageView;
 
+	@Override
 	@FXML
 	public abstract void loadScene(Event e);
 
@@ -38,6 +41,8 @@ public abstract class CarMod implements Controller{
 	void goBack(Event e) {
 		AdminPage.getInstance().loadScene(e);
 	}
+
+	//// Validation Functions
 
 	private boolean validateCompany() {
 		String RegaxName = "\\p{Upper}(\\p{Lower}+\\s?)";
@@ -64,7 +69,7 @@ public abstract class CarMod implements Controller{
 
 	private boolean validateDate() {
 
-		if (Integer.parseInt(year.getText()) > 2020 || Integer.parseInt(year.getText()) < 1980)
+		if ((Integer.parseInt(year.getText()) > 2020) || (Integer.parseInt(year.getText()) < 1980))
 			return false;
 		else if (year.getText().isEmpty())
 			return false;
@@ -115,6 +120,8 @@ public abstract class CarMod implements Controller{
 		return false;
 	}
 
+	//// Getters
+
 	public TextField getCompany() {
 		return company;
 	}
@@ -143,14 +150,14 @@ public abstract class CarMod implements Controller{
 	public void getImageFile(Event e) {
 		MouseEvent eMouse = (MouseEvent) e;
 
-		if(eMouse.getButton() == MouseButton.PRIMARY) {
+		if (eMouse.getButton() == MouseButton.PRIMARY) {
 			FileChooser imageFile = new FileChooser();
 			imageFile.getExtensionFilters()
 					.addAll(new ExtensionFilter("Images", "*.jpg", "*.jpeg", "*.png", "*.bmp", "*.gif"));
-			File file = imageFile.showOpenDialog(((Scene) ((Node) e.getSource()).getScene()).getWindow());
-			Image image = new Image(file.toURI().toString(), 150, 100 , false, false);
+			File file = imageFile.showOpenDialog(((Node) e.getSource()).getScene().getWindow());
+			Image image = new Image(file.toURI().toString(), 150, 100, false, false);
 			carImageView.setImage(image);
 		}
 	}
-	
+
 }

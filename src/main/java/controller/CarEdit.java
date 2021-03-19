@@ -42,26 +42,29 @@ public class CarEdit extends CarMod implements Initializable {
 		return instance;
 	}
 
+	//// Decides which car we will be editing
 	public static void setActiveCar(CarCard activeCar) {
 		CarEdit.activeCar = activeCar;
 	}
 
 	@FXML
 	public void editBtnPressed(Event e) {
-		
-		if(validateAll()) {
-			// edit activeCar
+
+		if (validateAll()) {
+
+			//// Edit activeCar
 			activeCar.setCompany(getCompany().getText());
 			activeCar.setModel(getModel().getText());
 			activeCar.setPrice(Integer.parseInt(getPrice().getText()));
 			activeCar.setYear(Integer.parseInt(getYear().getText()));
 			activeCar.setColor(getColor().getText());
 			activeCar.getPic().setImage(getCarImageView().getImage());
-			// Notify to edited car
+
+			//// Notify that the car was edited successfully
 			Alert alert = new Alert(AlertType.INFORMATION, "Car edited successfully", ButtonType.OK);
 			alert.show();
 
-			// Go AdminPage
+			//// Go back to AdminPage
 			AdminPage.getInstance().loadScene(e);
 		}
 	}
