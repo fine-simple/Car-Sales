@@ -45,16 +45,16 @@ public class AdminPage extends Marketplace {
         }
     }
 
-    void addCustomOption(CarCard car) {
-        Button edit = new Button("Edit");
+    @Override
+    void setCustomBtn(CarCard car) {
+        Button edit = car.getCustomBtn();
+        
+        edit.setText("Edit");
 
         edit.setOnAction(e -> {
             CarEdit.setActiveCar(car);
             CarEdit.getInstance().loadScene(e);
         });
-        if(car.getContainer().getChildren().size() > 2)
-            car.getContainer().getChildren().remove(2);
-        car.getContainer().getChildren().add(edit);
     }
 
 	public static AdminPage getInstance() {

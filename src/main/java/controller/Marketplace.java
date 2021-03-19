@@ -47,13 +47,15 @@ public class Marketplace implements Initializable, Controller {
         Car.getArray().forEach(car -> {
             car.updateDetails();
             list.getChildren().add(car.getContainer());
-            addCustomOption(car);
+            setCustomBtn(car);
         });
 
     }
 
-    void addCustomOption(CarCard car) {
-        Button buy = new Button("Buy");
+    void setCustomBtn(CarCard car) {
+        Button buy = car.getCustomBtn();
+        
+        buy.setText("Buy");
         
         buy.setOnAction(e -> {
             Alert confirmBox = new Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION, "Are you sure you want to buy this car?");
@@ -62,10 +64,6 @@ public class Marketplace implements Initializable, Controller {
                 new Alert(AlertType.INFORMATION, "Car Bought Successfully").show();
             }
         });
-
-        if(car.getContainer().getChildren().size() > 2)
-            car.getContainer().getChildren().remove(2);
-        car.getContainer().getChildren().add(buy);
     }
 
     @FXML

@@ -2,6 +2,7 @@ package main.gui.java;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,8 +23,10 @@ public class CarCard extends Car {
     private final VBox detailsBox = new VBox(company, details);
     
     private final ImageView pic = new ImageView();
-        
-    private final HBox container = new HBox(pic, detailsBox);
+    
+    private final Button customBtn = new Button();
+
+    private final HBox container = new HBox(pic, detailsBox, customBtn);
     
     private boolean selected = false;
 
@@ -111,6 +114,10 @@ public class CarCard extends Car {
 
     public ImageView getPic() {
         return pic;
+    }
+
+    public Button getCustomBtn() {
+        return customBtn;
     }
 
 }
