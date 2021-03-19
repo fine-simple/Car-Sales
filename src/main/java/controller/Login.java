@@ -19,64 +19,68 @@ import javafx.stage.Stage;
 import main.java.component.Client;
 
 public class Login implements Controller {
-    
-    private static Login instance = null;
-    private Scene scene = null;
 
-    @FXML
-    private TextField email;
-    @FXML
-    private PasswordField password;
+	private static Login instance = null;
+	private Scene scene = null;
 
-    public static Login getInstance() {
-        if(instance == null)
-            instance = new Login();
-        return instance;
-    }
+	@FXML
+	private TextField email;
+	@FXML
+	private PasswordField password;
 
-    @FXML
-    public void loadScene(Event e) {
-        
-        Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        if(scene == null) {
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("../../gui/fxml/login.fxml"));
-                scene = new Scene(root);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+	@Override
+	@FXML
+	public void loadScene(Event e) {
 
-        }
-        stageTheEventBelongsTo.setScene(scene);
-    }
-    @FXML
-    private void performLogin(KeyEvent e) throws IOException {
-        if(e.getCode() == KeyCode.ENTER) {
-            login((Event)e);
-        }
-    }
+		Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		if (scene == null) {
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("../../gui/fxml/login.fxml"));
+				scene = new Scene(root);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 
-    @FXML
-    private void goToRegister(ActionEvent e) throws IOException {
-        Register.getInstance().loadScene(e);
-    }
+		}
+		stageTheEventBelongsTo.setScene(scene);
+	}
 
-    @FXML
-    private void login(Event e) throws IOException {
-        //Logging as admin validation
-        if(email.getText().equals(main.java.component.Admin.admin.getEmail()) && password.getText().equals(main.java.component.Admin.admin.getPassword())) {
-            main.java.controller.AdminPage.getInstance().loadScene(e);
-        }
-        else { //Logging as client validation
-            for(Client client: Client.getArray()) {
-                if(client.getEmail().equals(email.getText()) && client.getPassword().equals(password.getText())) {
-                    Marketplace.getInstance().loadScene(e);
-                    return;
-                }
-            }
+	@FXML
+	private void performLogin(KeyEvent e) throws IOException {
+		if (e.getCode() == KeyCode.ENTER) {
+			login(e);
+		}
+	}
 
-            Alert alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "User Not Found", ButtonType.CANCEL);
-            alert.show();
-        }
-    }
+	@FXML
+	private void goToRegister(ActionEvent e) throws IOException {
+		Register.getInstance().loadScene(e);
+	}
+
+	@FXML
+	private void login(Event e) throws IOException {
+		// Logging as admin validation
+		if (email.getText().equals(main.java.component.Admin.admin.getEmail())
+				&& password.getText().equals(main.java.component.Admin.admin.getPassword())) {
+			main.java.controller.AdminPage.getInstance().loadScene(e);
+		} else { // Logging as client validation
+			for (Client client : Client.getArray()) {
+				if (client.getEmail().equals(email.getText()) && client.getPassword().equals(password.getText())) {
+					Marketplace.getInstance().loadScene(e);
+					return;
+				}
+			}
+
+			Alert alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "User Not Found",
+					ButtonType.CANCEL);
+			alert.show();
+		}
+	}
+
+	//// Singleton
+	public static Login getInstance() {
+		if (instance == null)
+			instance = new Login();
+		return instance;
+	}
 }

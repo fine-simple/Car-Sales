@@ -36,12 +36,6 @@ public class CarEdit extends CarMod implements Initializable {
 		}
 	}
 
-	public static CarEdit getInstance() {
-		if (instance == null)
-			instance = new CarEdit();
-		return instance;
-	}
-
 	//// Decides which car we will be editing
 	public static void setActiveCar(CarCard activeCar) {
 		CarEdit.activeCar = activeCar;
@@ -77,6 +71,13 @@ public class CarEdit extends CarMod implements Initializable {
 		getColor().setText(activeCar.getColor());
 		getPrice().setText(String.valueOf(activeCar.getPrice()));
 		getCarImageView().setImage(activeCar.getPic().getImage());
+	}
+
+	//// Singleton
+	public static CarEdit getInstance() {
+		if (instance == null)
+			instance = new CarEdit();
+		return instance;
 	}
 
 }

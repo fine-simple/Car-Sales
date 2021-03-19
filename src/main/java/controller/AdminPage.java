@@ -59,6 +59,7 @@ public class AdminPage extends Marketplace {
 		});
 	}
 
+	//// Singleton
 	public static AdminPage getInstance() {
 		if (instance == null)
 			instance = new AdminPage();

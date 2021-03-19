@@ -36,12 +36,6 @@ public class CarAdd extends CarMod {
 		stageTheEventBelongsTo.setScene(scene);
 	}
 
-	public static CarAdd getInstance() {
-		if (instance == null)
-			instance = new CarAdd();
-		return instance;
-	}
-
 	//// adds the (ADD) button and send alert
 
 	@FXML
@@ -59,5 +53,12 @@ public class CarAdd extends CarMod {
 			// Go back to AdminPage
 			AdminPage.getInstance().loadScene(e);
 		}
+	}
+
+	//// Singleton
+	public static CarAdd getInstance() {
+		if (instance == null)
+			instance = new CarAdd();
+		return instance;
 	}
 }
