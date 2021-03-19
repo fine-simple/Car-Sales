@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import main.gui.java.CarCard;
-import main.java.component.Cars;
+import main.java.component.Car;
 
 public class AdminPage extends Marketplace {
 
@@ -36,8 +36,8 @@ public class AdminPage extends Marketplace {
 
     @FXML
     private void deleteCars(Event e) {
-        for (int i = 0; i < Cars.getArray().size(); i++) {
-            CarCard car = Cars.getArray().get(i);
+        for (int i = 0; i < Car.getArray().size(); i++) {
+            CarCard car = Car.getArray().get(i);
             if(car.isSelected()) {
                 car.remove();
                 i--;

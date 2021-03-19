@@ -1,9 +1,15 @@
 package main.java.component;
 
+import java.util.ArrayList;
+
+import main.gui.java.CarCard;
+
 public class Car {
 	
 	private int year, price;
 	private String company, model, color;
+	
+	private static ArrayList<CarCard> array = new ArrayList<>();
 
 	public Car(String company, String model, int year, int price, String color) {
 		this.company = company;
@@ -17,6 +23,10 @@ public class Car {
 		this(company, model, year, price , "Not Defined");
 	}
 
+	public static ArrayList<CarCard> getArray() {
+		return array;
+	}
+	
 	public int getPrice() {
 		return price;
 	}

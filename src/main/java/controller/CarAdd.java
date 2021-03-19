@@ -13,7 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import main.gui.java.CarCard;
-import main.java.component.Cars;
+import main.java.component.Car;
 
 public class CarAdd extends CarMod {
 
@@ -45,7 +45,7 @@ public class CarAdd extends CarMod {
     private void addBtnPressed(Event e)
     {
         if(validateAll()) {
-            Cars.getArray().add(new CarCard(getCompany().getText(),getModel().getText(),Integer.parseInt(getYear().getText()),Integer.parseInt(getPrice().getText()), getColor().getText(), getCarImageView().getImage().getUrl()));
+            Car.getArray().add(new CarCard(getCompany().getText(),getModel().getText(),Integer.parseInt(getYear().getText()),Integer.parseInt(getPrice().getText()), getColor().getText(), getCarImageView().getImage().getUrl()));
 			Alert alert = new Alert(AlertType.INFORMATION, "Car Added successfully", ButtonType.OK);
 			alert.show();
 			// Go AdminPage

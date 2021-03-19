@@ -13,7 +13,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import main.java.component.Car;
-import main.java.component.Cars;
 
 public class CarCard extends Car {
     private final Label company = new Label(), details = new Label();
@@ -97,13 +96,13 @@ public class CarCard extends Car {
     }
 
     public void remove() {
-        Cars.getArray().remove(this);
+        Car.getArray().remove(this);
         VBox parent = (VBox) container.getParent();
 		parent.getChildren().remove(container);
     }
 
     public int getIndex() {
-        return Cars.getArray().indexOf(this);
+        return Car.getArray().indexOf(this);
     }
     
 	public HBox getContainer() {

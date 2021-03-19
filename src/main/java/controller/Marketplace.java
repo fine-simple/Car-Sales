@@ -19,7 +19,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.gui.java.CarCard;
-import main.java.component.Cars;
+import main.java.component.Car;
 
 public class Marketplace implements Initializable, Controller {
 
@@ -44,7 +44,7 @@ public class Marketplace implements Initializable, Controller {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        Cars.getArray().forEach(car -> {
+        Car.getArray().forEach(car -> {
             car.updateDetails();
             list.getChildren().add(car.getContainer());
             addCustomOption(car);
@@ -72,29 +72,29 @@ public class Marketplace implements Initializable, Controller {
     private void search(Event e){
         if(searchTextBox.getText().length()==0) {
             list.getChildren().clear();
-            Cars.getArray().forEach(car -> {
+            Car.getArray().forEach(car -> {
                 list.getChildren().add((car.getContainer()));
             });
         }
         else{
-            Cars.getArray().forEach(car -> {
+            Car.getArray().forEach(car -> {
                 list.getChildren().remove(car.getContainer());
             });
-            for(int i=0;i<Cars.getArray().size();i++) {
+            for(int i=0;i<Car.getArray().size();i++) {
                 if (isNumeric(searchTextBox.getText())){
                     if(searchTextBox.getText().length()>4){
-                        if(Integer.parseInt(searchTextBox.getText()) == Cars.getArray().get(i).getPrice()){
-                            list.getChildren().add(Cars.getArray().get(i).getContainer());
+                        if(Integer.parseInt(searchTextBox.getText()) == Car.getArray().get(i).getPrice()){
+                            list.getChildren().add(Car.getArray().get(i).getContainer());
                         }
                     }
                     else{
-                        if(Integer.parseInt(searchTextBox.getText()) == Cars.getArray().get(i).getYear()){
-                            list.getChildren().add(Cars.getArray().get(i).getContainer());
+                        if(Integer.parseInt(searchTextBox.getText()) == Car.getArray().get(i).getYear()){
+                            list.getChildren().add(Car.getArray().get(i).getContainer());
                         }
                     }
                 }
-                else if (Cars.getArray().get(i).getCompany().toLowerCase().contains(searchTextBox.getText().toLowerCase()) ) {
-                    list.getChildren().add(Cars.getArray().get(i).getContainer());
+                else if (Car.getArray().get(i).getCompany().toLowerCase().contains(searchTextBox.getText().toLowerCase()) ) {
+                    list.getChildren().add(Car.getArray().get(i).getContainer());
                 }
             }
 
