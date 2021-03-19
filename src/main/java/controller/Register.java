@@ -116,7 +116,7 @@ public class Register implements Controller {
         }
         else {
             //Add to users database
-            Client.getArray().add(new Client(fullName.getText(), email.getText(), password.getText()));
+            Client.getArray().add(new Client(fullName.getText(), email.getText(), password.getText())); //Adding new user to clients array
             
             //Notify to added user
             Alert alert = new Alert(AlertType.INFORMATION, "User Added Successfully", ButtonType.OK);

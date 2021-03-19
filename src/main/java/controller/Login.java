@@ -63,11 +63,11 @@ public class Login implements Controller {
 
     @FXML
     private void login(Event e) throws IOException {
-        
+        //Logging as admin validation
         if(email.getText().equals(main.java.component.Admin.admin.getEmail()) && password.getText().equals(main.java.component.Admin.admin.getPassword())) {
             main.java.controller.AdminPage.getInstance().loadScene(e);
         }
-        else {
+        else { //Logging as client validation
             for(Client client: Client.getArray()) {
                 if(client.getEmail().equals(email.getText()) && client.getPassword().equals(password.getText())) {
                     Marketplace.getInstance().loadScene(e);
