@@ -12,8 +12,17 @@ import main.java.component.Client;
 
 public class Main extends Application {
 	public static void main(String[] args) {
-		// Sample Data
+
+		//// Clients Data
 		Client.getArray().add(new Client("fullName", "email", "password"));
+		Client.getArray().add(new Client("Ahmed Tawfik", "atawfik@mail.com", "atawfik"));
+		Client.getArray().add(new Client("Ahmed Hassan", "ahassan@mail.com", "ahassan"));
+		Client.getArray().add(new Client("Mohammed Yasser", "moyasser@mail.com", "moyasser"));
+		Client.getArray().add(new Client("Omar AbdulRahman", "omar@mail.com", "omaromar"));
+		Client.getArray().add(new Client("Omar Khaled", "okhaled@mail.com", "okhaled"));
+		Client.getArray().add(new Client("Omar Ashraf", "oashraf@mail.com", "oashraf"));
+
+		//// Cars Data
 		Car.getArray().add(new CarCard("Tesla", "Model X", 2019, 1927600, "White", "main/gui/assets/tesX.jpg"));
 		Car.getArray().add(new CarCard("Suzuki", "Alto", 2020, 123900, "Red", "main/gui/assets/suzA.jpg"));
 		Car.getArray().add(new CarCard("Lada", "Granta", 2021, 153000, "Silver", "main/gui/assets/ladG.jpg"));
