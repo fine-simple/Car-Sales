@@ -2,7 +2,7 @@ package main.java.component;
 
 import java.util.ArrayList;
 
-import main.gui.java.CarCard;
+import main.java.gui.CarCard;
 
 public class Car {
 	

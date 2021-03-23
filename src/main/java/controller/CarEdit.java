@@ -15,7 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import main.gui.java.CarCard;
+import main.java.gui.CarCard;
 
 public class CarEdit extends CarMod implements Initializable {
 

@@ -18,7 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import main.gui.java.CarCard;
+import main.java.gui.CarCard;
 import main.java.component.Car;
 
 public class Marketplace implements Initializable, Controller {

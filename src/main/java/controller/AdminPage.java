@@ -10,7 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import main.gui.java.CarCard;
+import main.java.gui.CarCard;
 import main.java.component.Car;
 
 public class AdminPage extends Marketplace {
