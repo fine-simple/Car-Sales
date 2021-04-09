@@ -27,6 +27,9 @@ hs_err_pid*
 .classpath
 .project
 
+#Database
+*.trace.db
+
 #Ahmed Hassan
 .idea/*
 Car-Sales.iml
