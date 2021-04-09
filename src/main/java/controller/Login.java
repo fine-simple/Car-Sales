@@ -1,6 +1,7 @@
 package main.java.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -16,7 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import main.java.component.Client;
+import main.java.Database.UserDao;
+import main.java.component.User;
 
 public class Login implements Controller {
 
@@ -58,19 +60,25 @@ public class Login implements Controller {
 	}
 
 	@FXML
-	private void login(Event e) throws IOException {
+	private void login(Event e) {
 		// Logging as admin validation
-		if (email.getText().equals(main.java.component.Admin.admin.getEmail())
-				&& password.getText().equals(main.java.component.Admin.admin.getPassword())) {
-			main.java.controller.AdminPage.getInstance().loadScene(e);
-		} else { // Logging as client validation
-			for (Client client : Client.getArray()) {
-				if (client.getEmail().equals(email.getText()) && client.getPassword().equals(password.getText())) {
+		try {
+			User u = UserDao.getInstance().get(email.getText());
+			if(password.getText().equals(u.getPassword())) {
+				if (u.isAdmin()) {
+					AdminPage.getInstance().loadScene(e);
+				} else {
 					Marketplace.getInstance().loadScene(e);
-					return;
 				}
+				
+				return;
+			} else {
+				Alert alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Wrong Password",
+					ButtonType.CANCEL);
+				alert.show();
 			}
 
+		} catch (SQLException e1) {
 			Alert alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "User Not Found",
 					ButtonType.CANCEL);
 			alert.show();
