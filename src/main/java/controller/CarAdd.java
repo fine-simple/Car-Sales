@@ -18,22 +18,20 @@ import main.java.component.Car;
 public class CarAdd extends CarMod {
 
 	private static CarAdd instance = null;
-	private Scene scene = null;
-
+	
 	@Override
 	@FXML
 	public void loadScene(Event e) {
-		Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
-		if (scene == null) {
-			try {
-				Parent root = FXMLLoader.load(getClass().getResource("../../gui/fxml/add_car.fxml"));
-				scene = new Scene(root);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}
 		// Get the Stage from Event Called
-		stageTheEventBelongsTo.setScene(scene);
+		Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../../gui/fxml/add_car.fxml"));
+			Scene scene = new Scene(root);
+			stageTheEventBelongsTo.setScene(scene);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	//// adds the (ADD) button and send alert

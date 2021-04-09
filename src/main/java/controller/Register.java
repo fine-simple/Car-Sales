@@ -1,6 +1,7 @@
 package main.java.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -17,7 +18,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import main.java.component.Client;
+import main.java.Database.UserDao;
+import main.java.component.User;
 
 public class Register implements Controller {
 
@@ -70,11 +72,12 @@ public class Register implements Controller {
 		String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
 
 		if (email.getText().matches(regex)) {
-			for (Client x : Client.getArray()) {
-				if (x.getEmail().equals(email.getText()))
-					return false;
+			try {
+				UserDao.getInstance().get(email.getText());
+				return false;
+			} catch (SQLException e) {
+				return true;
 			}
-			return true;
 		} else
 			return false;
 	}
@@ -106,9 +109,15 @@ public class Register implements Controller {
 			error.show();
 		} else {
 			// Add to users database
-			Client.getArray().add(new Client(fullName.getText(), email.getText(), password.getText())); // Adding new
-																										// user to
-																										// clients array
+			String[] splittedFullName = fullName.getText().split(" ");
+			String firstName = splittedFullName[0];
+			String lastName = splittedFullName[1];
+
+			try {
+				UserDao.getInstance().save(new User(firstName, lastName, email.getText(), password.getText()));
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 
 			// Notify to added user
 			Alert alert = new Alert(AlertType.INFORMATION, "User Added Successfully", ButtonType.OK);
