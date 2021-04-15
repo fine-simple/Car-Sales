@@ -7,10 +7,10 @@ import main.java.gui.CarCard;
 public class Car {
 	
 	private int year, price;
+	private long id;
 	private String company, model, color;
-	
 	private static ArrayList<CarCard> array = new ArrayList<>();
-
+	
 	public Car(String company, String model, int year, int price, String color) {
 		this.company = company;
 		this.model = model;
@@ -23,10 +23,6 @@ public class Car {
 		this(company, model, year, price , "Not Defined");
 	}
 
-	public static ArrayList<CarCard> getArray() {
-		return array;
-	}
-	
 	public int getPrice() {
 		return price;
 	}
@@ -65,5 +61,17 @@ public class Car {
 
 	public void setCompany(String company) {
 		this.company = company;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public static ArrayList<CarCard> getArray() {
+		return array;
 	}
 }
