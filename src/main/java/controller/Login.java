@@ -1,7 +1,6 @@
 package main.java.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -17,8 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import main.java.Database.UserDao;
-import main.java.component.User;
+import main.java.Database.H2;
+import main.java.model.User;
 
 public class Login implements Controller {
 
@@ -62,30 +61,27 @@ public class Login implements Controller {
 	@FXML
 	private void login(Event e) {
 		// Logging as admin validation
-		try {
-			User u = UserDao.getInstance().get(email.getText());
-			if(password.getText().equals(u.getPassword())) {
-				if (u.isAdmin()) {
-					AdminPage.getInstance().loadScene(e);
-				} else {
-					Marketplace.getInstance().loadScene(e);
-				}
-				
-				return;
-			} else {
-				Alert alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Wrong Password",
-					ButtonType.CANCEL);
-				alert.show();
-			}
+		User u = H2.getInstance().userOperations().get(email.getText());
+		if (u == null) {
+			new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "User Not Found", ButtonType.CANCEL).show();
+			return;
+		}
 
-		} catch (SQLException e1) {
-			Alert alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "User Not Found",
-					ButtonType.CANCEL);
-			alert.show();
+		if (!password.getText().equals(u.getPassword())) {
+			new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Wrong Password", ButtonType.CANCEL).show();
+			return;
+		}
+
+		if (u.isAdmin()) {
+			AdminPage.setActiveUser(u);
+			AdminPage.getInstance().loadScene(e);
+		} else {
+			Marketplace.setActiveUser(u);
+			Marketplace.getInstance().loadScene(e);
 		}
 	}
 
-	//// Singleton
+	// Singleton
 	public static Login getInstance() {
 		if (instance == null)
 			instance = new Login();

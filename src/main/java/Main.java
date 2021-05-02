@@ -1,60 +1,21 @@
 package main.java;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import javax.naming.spi.DirStateFactory.Result;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import main.java.Database.H2;
 
-
-public class Main extends Application {	
+public class Main extends Application {
 	public static void main(String[] args) {
-
-		//// Clients Data
-		// Client.getArray().add(new Client("fullName", "email", "password"));
-		// Client.getArray().add(new Client("Ahmed Tawfik", "atawfik@mail.com", "atawfik"));
-		// Client.getArray().add(new Client("Ahmed Hassan", "ahassan@mail.com", "ahassan"));
-		// Client.getArray().add(new Client("Mohammed Yasser", "moyasser@mail.com", "moyasser"));
-		// Client.getArray().add(new Client("Omar AbdulRahman", "omar@mail.com", "omaromar"));
-		// Client.getArray().add(new Client("Omar Khaled", "okhaled@mail.com", "okhaled"));
-		// Client.getArray().add(new Client("Omar Ashraf", "oashraf@mail.com", "oashraf"));
-		try {
-			Connection conn = H2.getConnection();
-			PreparedStatement p = conn.prepareStatement("SELECT * FROM USER");
-			ResultSet rs = p.executeQuery();
-			while(rs.next()) {
-				System.out.println(rs.getString("email") + " " + rs.getString("password"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		// // //// Cars Data
-		// Car.getArray().add(new CarCard("Tesla", "Model X", 2019, 1927600, "White", "main/gui/assets/tesX.jpg"));
-		// Car.getArray().add(new CarCard("Suzuki", "Alto", 2020, 123900, "Red", "main/gui/assets/suzA.jpg"));
-		// Car.getArray().add(new CarCard("Lada", "Granta", 2021, 153000, "Silver", "main/gui/assets/ladG.jpg"));
-		// Car.getArray().add(new CarCard("Proton", "Saga", 2021, 188900, "Black", "main/gui/assets/proS.jpg"));
-		// Car.getArray().add(new CarCard("DFSK", "Glory 330", 2020, 169900, "Red", "main/gui/assets/dfsk.jpg"));
-		// Car.getArray().add(new CarCard("Renault", "Logan", 2021, 174000, "Beige", "main/gui/assets/renL.jpg"));
-		// Car.getArray().add(new CarCard("Nissan", "Sunny", 2021, 180900, "Gold", "main/gui/assets/nisS.jpg"));
-		// Car.getArray().add(new CarCard("Geely", "Emgrand", 2019, 189000, "Blue", "main/gui/assets/geeE.jpg"));
-		
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {		
+	public void start(Stage primaryStage) throws Exception {
 		// Start Login Page
-		Parent root = FXMLLoader.load(getClass().getResource("../gui/fxml/login.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("../gui/fxml/admin_page.fxml"));
 		Scene scene = new Scene(root);
 
 		// Stage Settings

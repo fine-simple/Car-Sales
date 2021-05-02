@@ -12,23 +12,39 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import main.java.gui.CarCard;
-import main.java.component.Car;
+import javafx.util.Callback;
+import main.java.Database.H2;
+import main.java.model.Car;
+import main.java.model.User;
+import main.java.view.CardView;
+import main.java.view.Cardable;
 
 public class Marketplace implements Initializable, Controller {
 
     private static Marketplace instance = null;
+    String actionText = "Buy";
 
     @FXML
-    private TextField searchTextBox;
+    TextField searchTextBox;
+
     @FXML
-    private VBox list;
+    ListView<Cardable> list;
+
+    private static User activeUser;
+
+    public static User getActiveUser() {
+        return activeUser;
+    }
+
+    public static void setActiveUser(User activeUser) {
+        Marketplace.activeUser = activeUser;
+    }
 
     @FXML
     public void loadScene(Event e) {
@@ -44,79 +60,55 @@ public class Marketplace implements Initializable, Controller {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        Car.getArray().forEach(car -> {
-            car.updateDetails();
-            list.getChildren().add(car.getContainer());
-            setCustomBtn(car);
-        });
+        // Add data to listview from database
+        list.getItems().setAll(H2.getInstance().carOperations().getAvailable());
 
+        initializeCellFactory();
     }
 
-    void setCustomBtn(CarCard car) {
-        Button buy = car.getCustomBtn();
-        
-        buy.setText("Buy");
-        
-        buy.setOnAction(e -> {
-            Alert confirmBox = new Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION, "Are you sure you want to buy this car?");
-            if(confirmBox.showAndWait().get() == ButtonType.OK) {
-                car.remove();
-                new Alert(AlertType.INFORMATION, "Car Bought Successfully").show();
+    void initializeCellFactory() {
+        // Set GUI of each car in the list
+        list.setCellFactory(new Callback<ListView<Cardable>, ListCell<Cardable>>() {
+            @Override
+            public ListCell<Cardable> call(ListView<Cardable> arg0) {
+                CardView cardView = new CardView(actionText);
+                cardView.setOnAction(e -> {
+                    action(e, cardView);
+                });
+                return cardView;
             }
         });
+    }
+
+    void action(Event e, CardView cardView) {
+        Alert confirmBox = new Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to buy this car?");
+        if (confirmBox.showAndWait().get() == ButtonType.OK) {
+            H2.getInstance().carOperations().buy((Car) cardView.getItem(), activeUser);
+            list.getItems().remove(cardView.getIndex());
+
+            new Alert(AlertType.INFORMATION, "Car Bought Successfully").show();
+        }
     }
 
     @FXML
-    private void search(Event e){
-        if(searchTextBox.getText().length()==0) {   //Clear when field is empty
-            list.getChildren().clear();
-            Car.getArray().forEach(car -> {
-                list.getChildren().add((car.getContainer()));
-            });
-        }
-        else{
-            Car.getArray().forEach(car -> {       //Clear when start typing
-                list.getChildren().remove(car.getContainer());
-            });
-            for(int i=0;i<Car.getArray().size();i++) {
-                if (isNumeric(searchTextBox.getText())){
-                    if(searchTextBox.getText().length()>4){     //Search by price
-                        if(Integer.parseInt(searchTextBox.getText()) == Car.getArray().get(i).getPrice()){
-                            list.getChildren().add(Car.getArray().get(i).getContainer());
-                        }
-                    }
-                    else{    //Search by year
-                        if(Integer.parseInt(searchTextBox.getText()) == Car.getArray().get(i).getYear()){
-                            list.getChildren().add(Car.getArray().get(i).getContainer());
-                        }
-                    }
-                }
-                else if (Car.getArray().get(i).getCompany().toLowerCase().contains(searchTextBox.getText().toLowerCase()) ) {  //Search by name
-                    list.getChildren().add(Car.getArray().get(i).getContainer());
-                }
-            }
-
+    private void search(Event e) {
+        if (searchTextBox.getText().strip().isBlank()) {
+            list.getItems().setAll(H2.getInstance().carOperations().getAvailable());
+        } else {
+            list.getItems().setAll(H2.getInstance().carOperations().search(searchTextBox.getText()));
         }
     }
 
     @FXML
     private void logout(Event e) {
+        activeUser = null;
         Login.getInstance().loadScene(e);
     }
-    
+
     public static Marketplace getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new Marketplace();
         return instance;
-    }
-
-    private static boolean isNumeric(String str){
-        try{
-            Double.parseDouble(str);
-            return true;
-        }
-        catch(NumberFormatException e){
-            return false;
-        }
     }
 }

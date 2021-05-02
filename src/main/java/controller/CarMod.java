@@ -1,13 +1,22 @@
 package main.java.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,11 +24,11 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
+import main.java.Database.H2;
+import main.java.model.Car;
 
-public abstract class CarMod implements Controller {
-
-	//// Attributes/Fields
-
+public class CarMod implements Controller, Initializable {
 	@FXML
 	private TextField company;
 	@FXML
@@ -32,21 +41,105 @@ public abstract class CarMod implements Controller {
 	private TextField price;
 	@FXML
 	private ImageView carImageView;
+	@FXML
+	private Button action;
+	@FXML
+	private Label title;
+
+	private static Car activeCar;
+	private static CarMod instance;
+
+	public static CarMod getInstance() {
+		if (instance == null)
+			instance = new CarMod();
+		return instance;
+	}
 
 	@Override
-	@FXML
-	public abstract void loadScene(Event e);
+	public void loadScene(Event e) {
+		// Get the Stage from Event Called
+		Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../../gui/fxml/car_mod.fxml"));
+			Scene scene = new Scene(root);
+			stageTheEventBelongsTo.setScene(scene);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
 
 	@FXML
 	void goBack(Event e) {
+		activeCar = null;
+		company.setText("");
+		model.setText("");
+		color.setText("");
+		price.setText("");
+		year.setText("");
+		carImageView.setImage(new Image("main/gui/assets/no-image.gif"));
+
 		AdminPage.getInstance().loadScene(e);
 	}
 
-	//// Validation Functions
+	public void addNewCar() {
+		action.setText("Add");
+		action.setOnAction(e -> {
+			if (validateAll()) {
+				Car car = new Car();
+				car.setCompany(company.getText());
+				car.setModel(model.getText());
+				car.setColor(color.getText());
+				car.setPrice(Integer.parseInt(price.getText()));
+				car.setYear(Integer.parseInt(year.getText()));
+				car.setImagePath(carImageView.getImage().getUrl());
+
+				H2.getInstance().carOperations().save(car);
+
+				// Notify that the car was added successfully
+				Alert alert = new Alert(AlertType.INFORMATION, "Car Added successfully", ButtonType.OK);
+				alert.show();
+
+				goBack(e);
+			}
+		});
+	}
+
+	public void editCar() {
+		company.setText(activeCar.getCompany());
+		model.setText(activeCar.getModel());
+		year.setText(String.valueOf(activeCar.getYear()));
+		color.setText(activeCar.getColor());
+		price.setText(String.valueOf(activeCar.getPrice()));
+		carImageView.setImage(new Image(activeCar.getImagePath()));
+		action.setText("Edit");
+		action.setOnAction(e -> {
+			if (validateAll()) {
+				// Edit activeCar
+				activeCar.setCompany(company.getText());
+				activeCar.setModel(model.getText());
+				activeCar.setPrice(Integer.parseInt(price.getText()));
+				activeCar.setYear(Integer.parseInt(year.getText()));
+				activeCar.setColor(color.getText());
+				activeCar.setImagePath(carImageView.getImage().getUrl());
+
+				H2.getInstance().carOperations().update(activeCar);
+
+				// Notify that the car was edited successfully
+				Alert alert = new Alert(AlertType.INFORMATION, "Car edited successfully", ButtonType.OK);
+				alert.setHeaderText("");
+				alert.show();
+
+				goBack(e);
+			}
+		});
+	}
+
+	public static void setActiveCar(Car activeCar) {
+		CarMod.activeCar = activeCar;
+	}
 
 	private boolean validateCompany() {
-		String RegaxName = "\\p{Upper}(\\p{Lower}+\\s?)";
-		String patternName = "(" + RegaxName + "){1,3}";
+		String patternName = "^[A-Za-z]";
 		if (company.getText().matches(patternName))
 			return true;
 		else if (company.getText().isEmpty())
@@ -120,32 +213,6 @@ public abstract class CarMod implements Controller {
 		return false;
 	}
 
-	//// Getters
-
-	public TextField getCompany() {
-		return company;
-	}
-
-	public TextField getModel() {
-		return model;
-	}
-
-	public TextField getYear() {
-		return year;
-	}
-
-	public TextField getColor() {
-		return color;
-	}
-
-	public TextField getPrice() {
-		return price;
-	}
-
-	public ImageView getCarImageView() {
-		return carImageView;
-	}
-
 	@FXML
 	public void getImageFile(Event e) {
 		MouseEvent eMouse = (MouseEvent) e;
@@ -157,6 +224,15 @@ public abstract class CarMod implements Controller {
 			File file = imageFile.showOpenDialog(((Node) e.getSource()).getScene().getWindow());
 			Image image = new Image(file.toURI().toString(), 150, 100, false, false);
 			carImageView.setImage(image);
+		}
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		if (activeCar == null) {
+			addNewCar();
+		} else {
+			editCar();
 		}
 	}
 
