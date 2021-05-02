@@ -82,7 +82,7 @@ public class CarMod implements Controller, Initializable {
 	}
 
 	public void addNewCar() {
-		action.setText("Add");
+		title.setText("Add");
 		action.setOnAction(e -> {
 			if (validateAll()) {
 				Car car = new Car();
@@ -105,13 +105,13 @@ public class CarMod implements Controller, Initializable {
 	}
 
 	public void editCar() {
+		title.setText("Edit");
 		company.setText(activeCar.getCompany());
 		model.setText(activeCar.getModel());
 		year.setText(String.valueOf(activeCar.getYear()));
 		color.setText(activeCar.getColor());
 		price.setText(String.valueOf(activeCar.getPrice()));
 		carImageView.setImage(new Image(activeCar.getImagePath()));
-		action.setText("Edit");
 		action.setOnAction(e -> {
 			if (validateAll()) {
 				// Edit activeCar
