@@ -1,7 +1,6 @@
 package main.java.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -17,17 +16,20 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.java.Database.UserDao;
-import main.java.component.User;
+import main.java.Database.H2;
+import main.java.model.User;
 
 public class Register implements Controller {
 
-	private static Register instance = null;
-	private Scene scene = null;
+	private static Register instance;
+	private Scene scene;
+	private Stage stageTheEventBelongsTo;
+	Alert alert = new Alert(AlertType.INFORMATION, "", ButtonType.OK);;
 
 	@FXML
-	private TextField fullName, email;
+	private TextField firstName, lastName, email;
 	@FXML
 	private PasswordField password;
 
@@ -35,7 +37,7 @@ public class Register implements Controller {
 	@FXML
 	public void loadScene(Event e) {
 
-		Stage stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		stageTheEventBelongsTo = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../../gui/fxml/register.fxml"));
 			scene = new Scene(root);
@@ -45,6 +47,9 @@ public class Register implements Controller {
 
 		// Get the Stage from Event Called
 		stageTheEventBelongsTo.setScene(scene);
+
+		alert.initOwner(stageTheEventBelongsTo);
+		alert.initModality(Modality.APPLICATION_MODAL);
 	}
 
 	@FXML
@@ -58,77 +63,93 @@ public class Register implements Controller {
 			register(e);
 	}
 
-	private boolean validateName() {
-		String regexName = "\\p{Upper}(\\p{Lower}+\\s?)";
-		String patternName = "(" + regexName + "){2,3}";
+	private String trimeName(String name) {
+		char[] trimmed = name.toCharArray();
 
-		if (fullName.getText().matches(patternName))
-			return true;
-		else
+		trimmed[0] = Character.toUpperCase(trimmed[0]);
+
+		if (name.length() < 2)
+			return name;
+
+		for (int i = 1; i < trimmed.length; i++) {
+			trimmed[i] = Character.toLowerCase(trimmed[i]);
+		}
+
+		return String.valueOf(trimmed);
+	}
+
+	private boolean validateName() {
+
+		firstName.setText(firstName.getText().strip());
+		lastName.setText(lastName.getText().strip());
+
+		String patternName = "^[a-zA-Z]+$";
+		if (!firstName.getText().matches(patternName)) {
+			alert.setContentText("Invalid First Name");
+			alert.setHeaderText("");
+			alert.show();
 			return false;
+		} else if (!lastName.getText().matches(patternName)) {
+			alert.setContentText("Invalid Last Name");
+			alert.setHeaderText("");
+			alert.show();
+			return false;
+		}
+
+		firstName.setText(trimeName(firstName.getText()));
+		lastName.setText(trimeName(lastName.getText()));
+
+		return true;
 	}
 
 	private boolean validateEmail() {
 		String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
 
-		if (email.getText().matches(regex)) {
-			try {
-				UserDao.getInstance().get(email.getText());
-				return false;
-			} catch (SQLException e) {
-				return true;
-			}
-		} else
+		if (!email.getText().matches(regex)) {
+			alert.setContentText("Enter Valid Email Address");
+			alert.setHeaderText("");
+			alert.show();
 			return false;
+		}
+
+		if (H2.getInstance().userOperations().get(email.getText()) != null) {
+			alert.setContentText("User Already Exists");
+			alert.setHeaderText("");
+			alert.show();
+			return false;
+		}
+
+		return true;
 	}
 
 	private boolean validatePassword() {
 		if (password.getText().length() >= 6)
 			return true;
-		else
-			return false;
+		alert.setContentText("Password must be of 6 length at least");
+		alert.setHeaderText("");
+		alert.show();
+		return false;
 	}
 
 	@FXML
 	private void register(Event e) {
-
-		Alert error = new Alert(AlertType.ERROR, "", ButtonType.CANCEL);
-
-		if (!validateName()) {
-			error.setHeaderText("Full Name Error");
-			error.setContentText("Please Make Sure you enter each word capitalized with maximum 3 words");
-			error.show();
-		} else if (!validateEmail()) {
-			error.setHeaderText("Email Error");
-			error.setContentText(
-					"Please Make Sure you enter valid email format\n" + "Make sure you are not already registered");
-			error.show();
-		} else if (!validatePassword()) {
-			error.setHeaderText("Password Error");
-			error.setContentText("Please Make Sure you enter at least 6 characters in password");
-			error.show();
-		} else {
+		if (validateName() && validateEmail() && validatePassword()) {
+			User user = new User(firstName.getText(), lastName.getText(), email.getText(), password.getText());
 			// Add to users database
-			String[] splittedFullName = fullName.getText().split(" ");
-			String firstName = splittedFullName[0];
-			String lastName = splittedFullName[1];
-
-			try {
-				UserDao.getInstance().save(new User(firstName, lastName, email.getText(), password.getText()));
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			H2.getInstance().userOperations().save(user);
 
 			// Notify to added user
-			Alert alert = new Alert(AlertType.INFORMATION, "User Added Successfully", ButtonType.OK);
+			alert.setContentText("User Added Successfully");
+			alert.setHeaderText("");
 			alert.show();
 
 			// Go Marketplace
+			Marketplace.setActiveUser(user);
 			Marketplace.getInstance().loadScene(e);
 		}
 	}
 
-	//// Singleton
+	// Singleton
 	public static Register getInstance() {
 		if (instance == null)
 			instance = new Register();

@@ -1,14 +1,16 @@
 package main.java.Database;
 
-import java.sql.SQLException;
+import java.util.List;
 
 public interface Dao<T> {
-    
-    void save(T t) throws SQLException;
-    
-    T get(long id) throws SQLException;
-    
-    void update(long id, T t) throws SQLException;
-    
-    void delete(T t) throws SQLException;
+
+    void save(T t);
+
+    T get(long id);
+
+    void update(T t);
+
+    void delete(T t);
+
+    List<T> getAll();
 }

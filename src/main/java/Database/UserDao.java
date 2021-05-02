@@ -4,109 +4,157 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import main.java.component.User;
+import java.util.ArrayList;
+import java.util.List;
+import main.java.model.User;
 
 public class UserDao implements Dao<User> {
-    //Singleton
-    private static UserDao instance;
-
-    private UserDao() {
-
-    }
-
-    public static UserDao getInstance() {
-        if(instance == null) {
-            instance = new UserDao();
-        }
-
-        return instance;
-    }
-    @Override
-    public void save(User user) throws SQLException {
-        Connection conn = H2.getConnection();
-        PreparedStatement p = conn
-                .prepareStatement("INSERT INTO User (first_name, last_name, email, password) VALUES (?,?,?,?)");
-
-        p.setString(1, user.getFirstName());
-        p.setString(2, user.getLastName());
-        p.setString(3, user.getEmail());
-        p.setString(4, user.getPassword());
-
-        p.execute();
-        conn.close();
-    }
 
     @Override
-    public User get(long id) throws SQLException {
-        Connection conn = H2.getConnection();
-        PreparedStatement p = conn
-                .prepareStatement("SELECT * FROM User WHERE ssn=?");
-        p.setLong(1, id);
+    public void save(User user) {
+        Connection conn = H2.getInstance().getConnection();
+        try {
+            PreparedStatement p = conn
+                    .prepareStatement("INSERT INTO User (first_name, last_name, email, password) VALUES (?,?,?,?)");
 
-        ResultSet rs = p.executeQuery();
-        
-        if (rs.next()) {
-            User user = new User(rs.getLong("ssn"),rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"), rs.getString("password"));
-            user.setAdmin(isAdmin(user.getId()));
-            conn.close();
-            return user;
+            p.setString(1, user.getFirstName());
+            p.setString(2, user.getLastName());
+            p.setString(3, user.getEmail());
+            p.setString(4, user.getPassword());
+            p.execute();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error saving user into database");
         }
-
-        conn.close();
-        return null;
+        if (user.isAdmin())
+            addToAdmins(user);
+        H2.getInstance().closeConnection();
     }
 
-    public User get(String email) throws SQLException {
-        Connection conn = H2.getConnection();
-        PreparedStatement p = conn
-                .prepareStatement("SELECT * FROM User WHERE email=?");
-        p.setString(1, email);
+    private void addToAdmins(User user) {
+        Connection conn = H2.getInstance().getConnection();
+        try {
+            PreparedStatement p = conn.prepareStatement("INSERT INTO Admin VALUES (?)");
+            p.setLong(1, user.getSsn());
+            p.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error Adding user to admins");
+        }
+    }
 
-        ResultSet rs = p.executeQuery();
-        
-        rs.next();
-        User user = new User(rs.getLong("ssn"),rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"), rs.getString("password"));
-        user.setAdmin(isAdmin(user.getId()));
+    @Override
+    public User get(long id) {
+        Connection conn = H2.getInstance().getConnection();
+        User user = new User();
+        try {
+            PreparedStatement p = conn
+                    .prepareStatement("SELECT * FROM User LEFT JOIN Admin ON User.ssn = Admin.ssn WHERE User.ssn=?");
+            p.setLong(1, id);
 
-        conn.close();
+            ResultSet rs = p.executeQuery();
+
+            if (!rs.next()) {
+                H2.getInstance().closeConnection();
+                return null;
+            }
+            user.setSsn(rs.getLong("ssn"));
+            user.setFirstName(rs.getString("first_name"));
+            user.setLastName(rs.getString("last_name"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+            user.setAdmin(rs.getBoolean("admin.ssn"));
+        } catch (SQLException e) {
+            throw new RuntimeException("Error Getting user from database");
+        }
+
+        H2.getInstance().closeConnection();
         return user;
     }
-    
-    @Override
-    public void update(long id, User user) throws SQLException {
-        Connection conn = H2.getConnection();
-        PreparedStatement p = conn.prepareStatement("UPDATE User set first_name=?, last_name=?, email=?, password=? WHERE id=?");
 
-        p.setString(1, user.getFirstName());
-        p.setString(2, user.getLastName());
-        p.setString(3, user.getEmail());
-        p.setString(4, user.getPassword());
-        p.setLong(5, user.getId());
-
-        p.execute();
-        conn.close();
+    public User get(String email) {
+        Connection conn = H2.getInstance().getConnection();
+        User user = new User();
+        try {
+            PreparedStatement p = conn
+                    .prepareStatement("SELECT * FROM User LEFT JOIN Admin ON User.ssn = Admin.ssn WHERE User.email=?");
+            p.setString(1, email);
+            ResultSet rs = p.executeQuery();
+            if (!rs.next())
+                return null;
+            user.setSsn(rs.getLong("ssn"));
+            user.setFirstName(rs.getString("first_name"));
+            user.setLastName(rs.getString("last_name"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+            user.setAdmin(rs.getBoolean("admin.ssn"));
+            return user;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error Getting user from database");
+        } finally {
+            H2.getInstance().closeConnection();
+        }
     }
 
     @Override
-    public void delete(User user) throws SQLException {
-        Connection conn = H2.getConnection();
-        PreparedStatement p = conn.prepareStatement("DELETE FROM User WHERE id=?");
+    public void update(User user) {
+        Connection conn = H2.getInstance().getConnection();
+        try {
+            PreparedStatement p = conn
+                    .prepareStatement("UPDATE User set first_name=?, last_name=?, email=?, password=? WHERE ssn=?");
 
-        p.setLong(1, user.getId());
-        
-        p.execute();
-        conn.close();
+            p.setString(1, user.getFirstName());
+            p.setString(2, user.getLastName());
+            p.setString(3, user.getEmail());
+            p.setString(4, user.getPassword());
+            p.setLong(5, user.getSsn());
+
+            p.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating user in database");
+        }
+
+        H2.getInstance().closeConnection();
     }
 
-    private boolean isAdmin(long id) throws SQLException {
-        Connection conn = H2.getConnection();
-        PreparedStatement p = conn
-                .prepareStatement("SELECT * FROM Admin WHERE ssn=?");
-        p.setLong(1, id);
+    @Override
+    public void delete(User user) {
+        Connection conn = H2.getInstance().getConnection();
+        try {
+            PreparedStatement p = conn.prepareStatement("DELETE FROM User WHERE ssn=?");
+            p.setLong(1, user.getSsn());
+            p.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting user from database");
+        } finally {
+            H2.getInstance().closeConnection();
+        }
+    }
 
-        ResultSet rs = p.executeQuery();
-        
-        return rs.next();
+    @Override
+    public List<User> getAll() {
+        Connection conn = H2.getInstance().getConnection();
+        List<User> users = new ArrayList<>();
+        try {
+            PreparedStatement p = conn.prepareStatement("SELECT * FROM User LEFT JOIN Admin ON User.ssn = Admin.ssn");
+
+            ResultSet rs = p.executeQuery();
+
+            while (rs.next()) {
+                User user = new User();
+                user.setSsn(rs.getLong("ssn"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setAdmin(rs.getBoolean("Admin.ssn"));
+
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting all users from database");
+        } finally {
+            H2.getInstance().closeConnection();
+        }
+        return users;
     }
 }

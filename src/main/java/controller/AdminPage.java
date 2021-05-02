@@ -1,6 +1,8 @@
 package main.java.controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -8,10 +10,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.stage.Stage;
-import main.java.gui.CarCard;
-import main.java.component.Car;
+import main.java.Database.H2;
+import main.java.model.Car;
+import main.java.view.CardView;
+import main.java.view.Cardable;
 
 public class AdminPage extends Marketplace {
 
@@ -30,36 +34,34 @@ public class AdminPage extends Marketplace {
 		}
 	}
 
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		actionText = "Edit";
+		super.initialize(arg0, arg1);
+	}
+
+	@Override
+	void action(Event e, CardView cardView) {
+		CarMod.setActiveCar((Car) cardView.getItem());
+		CarMod.getInstance().loadScene(e);
+	}
+
 	@FXML
 	private void goToAdd(Event e) {
-		CarAdd.getInstance().loadScene(e);
+		CarMod.getInstance().loadScene(e);
 	}
 
 	@FXML
 	private void deleteCars(Event e) {
-		for (int i = 0; i < Car.getArray().size(); i++) {
-			CarCard car = Car.getArray().get(i);
-			if (car.isSelected()) {
-				car.remove();
-				i--;
-			}
+		for (Cardable card : list.getSelectionModel().getSelectedItems()) {
+			Car car = (Car) card;
+			list.getItems().remove(car);
+			H2.getInstance().carOperations().delete(car);
 		}
 	}
 
-	//// Changes the (Buy) button to (Edit) button
-	@Override
-	void setCustomBtn(CarCard car) {
-		Button edit = car.getCustomBtn();
-
-		edit.setText("Edit");
-
-		edit.setOnAction(e -> {
-			CarEdit.setActiveCar(car);
-			CarEdit.getInstance().loadScene(e);
-		});
-	}
-
-	//// Singleton
+	// Singleton
 	public static AdminPage getInstance() {
 		if (instance == null)
 			instance = new AdminPage();
