@@ -15,7 +15,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// Start Login Page
-		Parent root = FXMLLoader.load(getClass().getResource("../gui/fxml/admin_page.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("../gui/fxml/login.fxml"));
 		Scene scene = new Scene(root);
 
 		// Stage Settings
