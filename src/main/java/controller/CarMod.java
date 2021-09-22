@@ -139,11 +139,9 @@ public class CarMod implements Controller, Initializable {
 	}
 
 	private boolean validateCompany() {
-		String patternName = "^[A-Za-z]";
+		String patternName = "^[A-Za-z]+";
 		if (company.getText().matches(patternName))
 			return true;
-		else if (company.getText().isEmpty())
-			return false;
 		else
 			return false;
 	}

@@ -22,7 +22,6 @@ public class CardCell {
     private ImageView pic;
 
     public CardCell() {
-        super();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../../gui/fxml/card_cell.fxml"));
         loader.setController(this);
         try {
